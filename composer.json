@@ -1,0 +1,30 @@
+{
+    "name": "sergmoro1/yii2-user",
+    "version": "1.0.0",
+    "description": "User registration by email with confirmation. Users management.",
+    "keywords": [
+        "yii2",
+        "user", "authentification",
+        "registration", "management"
+    ],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergey Morozov",
+            "email": "sergmoro1@ya.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+		"php": ">=5.4.0",
+        "yiisoft/yii2": "*",
+        "sergmoro1/yii2-lookup" : "*"
+        "sergmoro1/yii2-byone-uploader" : "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "sergmoro1\\user\\": "src"
+        }
+    }
+}
