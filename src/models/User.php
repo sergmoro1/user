@@ -6,7 +6,6 @@ use yii\helpers\Url;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use sergmoro1\user\Module;
 
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -47,15 +46,15 @@ class User extends ActiveRecord implements IdentityInterface
 	public function attributeLabels()
 	{
 		return [
-			'name' => Module::t('core', 'Name'),
-			'password' => Module::t('core', 'Password'),
-			'password_repeat' => Module::t('core', 'Repeat the passport'),
-			'email' => Module::t('core', 'Email'),
-			'group' => Module::t('core', 'Group'),
-			'status' => Module::t('core', 'Status'),
-			'verifyCode' => Module::t('core', 'Spam protection code'),
-			'created_at' => Module::t('core', 'Created'),
-			'updated_at' => Module::t('core', 'Modified'),
+			'name' => Yii::t('app', 'Name'),
+			'password' => Yii::t('app', 'Password'),
+			'password_repeat' => Yii::t('app', 'Repeat the passport'),
+			'email' => Yii::t('app', 'Email'),
+			'group' => Yii::t('app', 'Group'),
+			'status' => Yii::t('app', 'Status'),
+			'verifyCode' => Yii::t('app', 'Spam protection code'),
+			'created_at' => Yii::t('app', 'Created'),
+			'updated_at' => Yii::t('app', 'Modified'),
 		];
 	}
 

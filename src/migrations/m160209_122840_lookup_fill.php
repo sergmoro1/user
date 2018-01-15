@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m160208_122838_lookup_fill extends Migration
+class m160209_122840_lookup_fill extends Migration
 {
     public function up()
     {
