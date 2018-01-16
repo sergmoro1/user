@@ -1,9 +1,11 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
-class m160209_122840_lookup_fill extends Migration
+/**
+ * Class m180116_073828_lookup_fill
+ */
+class m180116_073828_lookup_fill extends Migration
 {
     public function up()
     {

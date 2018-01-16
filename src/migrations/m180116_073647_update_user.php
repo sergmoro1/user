@@ -1,11 +1,15 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
-class m160206_154228_add_fields_to_user extends Migration
+/**
+ * Class m180116_073647_update_user
+ */
+class m180116_073647_update_user extends Migration
 {
+    // Use up()/down() to run migration code without a transaction.
     public function up()
+    {
     {
 		$this->renameColumn('{{%user}}', 'username', 'name');
 		$this->addColumn('{{%user}}', 'group', $this->smallInteger());
@@ -19,6 +23,7 @@ class m160206_154228_add_fields_to_user extends Migration
 			'created_at' => time(),
 			'updated_at' => time(),
 		]);
+
     }
 
     public function down()
