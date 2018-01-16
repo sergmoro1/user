@@ -10,7 +10,6 @@ class m180116_073647_update_user extends Migration
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-    {
 		$this->renameColumn('{{%user}}', 'username', 'name');
 		$this->addColumn('{{%user}}', 'group', $this->smallInteger());
 		$this->insert('{{%user}}', [
