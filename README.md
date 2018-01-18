@@ -16,7 +16,7 @@ Used with sergmoro1/yii2-blog-tools module but can be used separately.
 In app directory:
 
 <pre>
-$ composer require sergmoro1/yii2-user "dev-master"
+$ composer require --prefer-dist sergmoro1/yii2-user "dev-master"
 </pre>
 
 Run migration:

@@ -19,8 +19,8 @@
     "require": {
 		"php": ">=5.4.0",
         "yiisoft/yii2": "*",
-        "sergmoro1/yii2-lookup" : "*",
-        "sergmoro1/yii2-byone-uploader" : "*"
+        "sergmoro1/yii2-lookup" : "dev-master",
+        "sergmoro1/yii2-byone-uploader" : "dev-master"
     },
     "autoload": {
         "psr-4": {
