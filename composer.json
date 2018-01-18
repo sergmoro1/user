@@ -15,12 +15,11 @@
             "email": "sergmoro1@ya.ru"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
 		"php": ">=5.4.0",
         "yiisoft/yii2": "*",
-        "sergmoro1/yii2-lookup" : "@dev",
-        "sergmoro1/yii2-byone-uploader" : "@dev"
+        "sergmoro1/yii2-lookup" : "*@dev",
+        "sergmoro1/yii2-byone-uploader" : "*@dev"
     },
     "autoload": {
         "psr-4": {
