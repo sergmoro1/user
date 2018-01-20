@@ -7,7 +7,6 @@
 /* @var $model common\models\Post */
 /* @var $form yii\widgets\ActiveForm */
 
-use Yii;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use sergmoro1\uploader\widgets\Byone;
