@@ -1,11 +1,9 @@
 <?php
 namespace sergmoro1\user\models;
 
-use Yii;
 use yii\base\Model;
 use sergmoro1\user\Module;
 
-use common\models\User;
 
 /**
  * Signup form
@@ -54,7 +52,7 @@ class SignupForm extends Model
                 return Yii::$app->mailer->compose(['html' => 'userActivating-html', 'text' => 'userActivating-text'], ['user' => $user])
                     ->setFrom(Yii::$app->params['adminEmail'])
                     ->setTo($this->email)
-                    ->setSubject(Module::t('core', 'Robot: Account activating for ') . Yii::$app->name)
+                    ->setSubject(Module::t('core', 'Robot: Account activating for ') . \Yii::$app->name)
                     ->send();
             }
         }

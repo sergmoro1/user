@@ -1,10 +1,9 @@
 <?php
 namespace sergmoro1\user\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\User;
+Use common\models\User;
 
 class UserSearch extends User
 {
@@ -30,7 +29,7 @@ class UserSearch extends User
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
 			'pagination' => [
-				'pageSize' => Yii::$app->params['recordsPerPage'],
+				'pageSize' => \Yii::$app->params['recordsPerPage'],
 			],
 			'sort' => [
 				'defaultOrder' => [
