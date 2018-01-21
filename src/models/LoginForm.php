@@ -4,6 +4,8 @@ namespace sergmoro1\user\models;
 use yii\base\Model;
 use sergmoro1\user\Module;
 
+use common\models\User;
+
 /**
  * Login form
  */

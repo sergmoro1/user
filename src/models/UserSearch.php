@@ -3,7 +3,8 @@ namespace sergmoro1\user\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-Use common\models\User;
+
+use common\models\User;
 
 class UserSearch extends User
 {

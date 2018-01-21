@@ -6,7 +6,7 @@ use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-class User extends ActiveRecord implements IdentityInterface
+class BaseUser extends ActiveRecord implements IdentityInterface
 {
     const STATUS_ACTIVE = 1;
     const STATUS_ARCHIVED = 2;
