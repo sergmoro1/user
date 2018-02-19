@@ -34,7 +34,4 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php ActiveForm::end(); ?>
 
 </div>
-<div class="col-lg-6">
-	<img src='<?= $frontend ?>/files/site/page/reset-password-bg.jpg' height='100%' width='100%'>
-</div>
 </div>

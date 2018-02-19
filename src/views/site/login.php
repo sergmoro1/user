@@ -51,7 +51,4 @@ $this->params['breadcrumbs'][] = Module::t('core', 'Access to content management
 <?php ActiveForm::end(); ?>
 
 </div> <!-- / .col ... -->
-<div class="col-lg-6">
-	<img src='<?= $frontend ?>/files/site/page/login-bg.jpg' height='100%' width='100%'>
-</div>
 </div> <!-- / .row -->

@@ -45,8 +45,5 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php ActiveForm::end(); ?>
 
 </div> <!-- / .col ... -->
-<div class="col-lg-6">
-	<img src='<?= $frontend ?>/files/site/page/signup-bg.jpg' height='100%' width='100%'>
-</div>
 </div> <!-- / .row -->
 

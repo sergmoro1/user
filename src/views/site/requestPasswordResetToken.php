@@ -12,6 +12,7 @@ use sergmoro1\user\Module;
 $this->title = Module::t('core', 'Request password reset');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<p><?= Module::t('core', 'You can request a password change if you have already registered.') ?></p>
 
 <div class="row">
 <div class="col-lg-6">
@@ -34,8 +35,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php ActiveForm::end(); ?>
 
-</div>
-<div class="col-lg-6">
-	<img src='<?= $frontend ?>/files/site/page/request-token-bg.jpg' height='100%' width='100%'>
 </div>
 </div>

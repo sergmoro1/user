@@ -57,6 +57,7 @@ return [
     'Users' => 'Пользователи',
     'Wrong password reset token.' => 'Не верный токен восстановления пароля.',
     'Wrong user activation token.' => 'Не верный токен активации пользователя.',
+    'You can request a password change if you have already registered.' => 'Вы можете запросить изменение пароля если уже были зарегистрированы.',
     'registration' => 'регистрация',
     'reset it' => 'восстановить его',
     '{name}, thank you for registering on the website, check email, to complete the procedure.' => 

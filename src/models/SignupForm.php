@@ -38,6 +38,17 @@ class SignupForm extends Model
     }
 
     /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+			'name' => Module::t('core', 'Name'),
+			'password' => Module::t('core', 'Password'),
+        ];
+    }
+
+    /**
      * Sends an email with a link, for user activating.
      *
      * @return boolean whether the email was send
