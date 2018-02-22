@@ -61,8 +61,8 @@ class SignupForm extends Model
             }
 
             if ($user->save()) {
-                return Yii::$app->mailer->compose(['html' => 'userActivating-html', 'text' => 'userActivating-text'], ['user' => $user])
-                    ->setFrom(Yii::$app->params['adminEmail'])
+                return \Yii::$app->mailer->compose(['html' => 'userActivating-html', 'text' => 'userActivating-text'], ['user' => $user])
+                    ->setFrom(\Yii::$app->params['adminEmail'])
                     ->setTo($this->email)
                     ->setSubject(Module::t('core', 'Robot: Account activating for ') . \Yii::$app->name)
                     ->send();

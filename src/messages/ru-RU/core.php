@@ -19,10 +19,13 @@
 return [
     'Access denied.' => 'Доступ запрещен',
     'Access to content management' => 'Доступ к управлению контентом',
-    'Check your email for further instructions.' => 'Проверьте указанный email для дальнейших инструкций.',
+    'Check your email for further instructions.' => 'Проверьте указанную почту для дальнейших инструкций.',
     'Created' => 'Создано',
     'Email' => '',
+    'Follow the link below to activate your account' => 'Следуйте по сслыке ниже для активации учетной записи',
+    'Follow the link below to reset your password' =>  'Следуйте по сслыке ниже для восстановления пароля',
     'Group' => 'Группа',
+    'Hello' => 'Здравствуйте',
     'If you forgot your password you can' => 'Если вы забыли пароль, вы можете',
     'Incorrect username or password.' => 'Не верное имя пользователя или пароль.',
     'Login' => 'Вход',
@@ -60,6 +63,6 @@ return [
     'You can request a password change if you have already registered.' => 'Вы можете запросить изменение пароля если уже были зарегистрированы.',
     'registration' => 'регистрация',
     'reset it' => 'восстановить его',
-    '{name}, thank you for registering on the website, check email, to complete the procedure.' => 
-		'{name}, спасибо за регистрацию на сайте, проверьте email для завершения процедуры.',
+    '{name}, thank you for registering on the {website} website, check email, to complete the procedure.' => 
+		'{name}, спасибо за регистрацию на сайте {website}, проверьте, указанную при регистрации, почту для завершения процедуры.',
 ];

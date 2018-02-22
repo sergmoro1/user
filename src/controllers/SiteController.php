@@ -122,8 +122,8 @@ class SiteController extends Controller
 					\Yii::$app->session->setFlash(
 						'success', 
 						Module::t('core', 
-							'{name}, thank you for registering on the website, check email, to complete the procedure.', 
-							['name' => $user->name]
+							'{name}, thank you for registering on the {website} website, check email, to complete the procedure.', 
+							['name' => $user->name, 'website' => \Yii::$app->name]
 						)
 					);
                     return $this->goHome();

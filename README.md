@@ -30,7 +30,7 @@ Use this module in addition to <code>sergmoro1/yii2-blog-tools</code> module.
 
 <h2>Usage</h2>
 
-Set up in <code>backend/config/main.php</code> or <code>common/config/main.php</code> tree modules. Two of them was installed automatically.
+Set up in <code>backend/config/main.php</code> or <code>common/config/main.php</code>.
 
 <pre>
 return [
@@ -39,5 +39,22 @@ return [
         'uploader' => ['class' => 'sergmoro1\uploader\Module'],
         'lookup' => ['class' => 'sergmoro1\lookup\Module'],
         'user' => ['class' => 'sergmoro1\user\Module'],
+    ],
+    'components' => [
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'viewPath' => '@vendor/sergmoro1/yii2-user/src/mail',
+            /* Definition of Yandex post office for your domain (example).
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.yandex.ru',
+                'username' => 'admin@your-site.ru',
+                'password' => 'your-password',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
+            */
+        ],
     ],
 </pre>
