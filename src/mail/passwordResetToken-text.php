@@ -4,7 +4,7 @@
 
 use sergmoro1\user\Module;
 
-$resetLink = \Yii::$app->urlManager->createAbsoluteUrl(['blog/site/reset-password', 'token' => $user->password_reset_token]);
+$resetLink = \Yii::$app->urlManager->createAbsoluteUrl(['user/site/reset-password', 'token' => $user->password_reset_token]);
 ?>
 <?= Module::t('core', 'Hello') ?> <?= $user->name ?>,
 
