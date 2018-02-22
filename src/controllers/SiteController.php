@@ -176,7 +176,7 @@ class SiteController extends Controller
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+        if ($model->load(\Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             \Yii::$app->session->setFlash('success', Module::t('core', 'New password was saved.'));
 
             return $this->goHome();
