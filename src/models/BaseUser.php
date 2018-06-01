@@ -13,6 +13,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
 
     const GROUP_ADMIN = 1;
     const GROUP_AUTHOR = 2;
+    const GROUP_COMMENTATOR = 3;
     
     /**
      * @inheritdoc
@@ -28,12 +29,14 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+			[['name', 'email'], 'required'],
             [['status', 'group'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ARCHIVED],
             ['status', 'in', 'range' => [self::STATUS_ARCHIVED, self::STATUS_ACTIVE]],
-            ['group', 'default', 'value' => self::GROUP_AUTHOR],
-            ['group', 'in', 'range' => [self::GROUP_ADMIN, self::GROUP_AUTHOR]],
+            ['group', 'default', 'value' => self::GROUP_COMMENTATOR],
+            ['group', 'in', 'range' => [self::GROUP_ADMIN, self::GROUP_AUTHOR, self::GROUP_COMMENTATOR]],
 			[['name', 'email', 'password_hash', 'password_reset_token'], 'string', 'max'=>255],
+			['email', 'email'],
 			[['auth_key'], 'string', 'max'=>32],
             [['created_at', 'updated_at'], 'safe'],
         ];
@@ -193,7 +196,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
      */
     public function getRoleName($role)
     {
-        return Lookup::item('Role', $role);
+        return Lookup::item('UserRole', $role);
     }
 
 	/**

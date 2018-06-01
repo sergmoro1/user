@@ -11,6 +11,8 @@ use common\models\User;
  */
 class LoginForm extends Model
 {
+	public $groups = [];
+	
     public $name;
     public $password;
     public $rememberMe = true;
@@ -30,6 +32,8 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            // registered user should also belongs to group
+            ['name', 'allowedUserGroups', 'params' => ['groups' => $this->groups]],
         ];
     }
 
@@ -47,6 +51,23 @@ class LoginForm extends Model
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, Module::t('core', 'Incorrect username or password.'));
             }
+        }
+    }
+
+    /**
+     * Validates the User group.
+     *
+     * @param string $attribute the attribute currently being validated
+     * @param array $params the additional name-value pairs given in the rule
+     */
+    public function allowedUserGroups($attribute, $params)
+    {
+        if(!($user = $this->getUser()))
+            // user has not registered yet
+            return;
+        if ($params['groups'] && !in_array($user->group, $params['groups'])) {
+            $this->addError($attribute, 
+                Module::t('core', 'You are registered, but you belong to a group that is not allowed to enter this part of the site.'));
         }
     }
 

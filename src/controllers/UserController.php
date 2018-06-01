@@ -54,9 +54,20 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
 		$model = $this->findModel($id);
-		if (\Yii::$app->user->can('update', ['model' => $model])) {
+		if (\Yii::$app->user->can('update', ['user' => $model])) {
 			if ($model->load(\Yii::$app->request->post()) && $model->save()) {
-				return $this->redirect(['index']);
+				if(\Yii::$app->user->identity->group == User::GROUP_COMMENTATOR) {
+					\Yii::$app->session->setFlash(
+						'success', 
+						Module::t('core', 
+							'{name}\'s profile was successfully updated.', 
+							['name' => \Yii::$app->user->identity->name]
+						)
+					);
+					
+				    return $this->redirect(['/blog/site/index']);
+				} else
+				    return $this->redirect(['index']);
 			} else {
 				return $this->render('update', [
 					'model' => $model,

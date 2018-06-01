@@ -60,7 +60,8 @@ use common\models\User;
 			]) ?>
 		</div>
 		<?php endif; ?>
-
+        
+        <?= $this->render('help') ?>
 	</div>
 </div>
 

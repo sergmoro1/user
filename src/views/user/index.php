@@ -11,7 +11,6 @@ use sergmoro1\user\Module;
 use sergmoro1\lookup\models\Lookup;
 
 $this->title = Module::t('core', 'Users');
-$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="post-index">

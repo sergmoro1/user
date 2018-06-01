@@ -49,7 +49,7 @@ return [
     'The requested model does not exist.' => 'Запрошенная модель не существует.',
     'There is no user with such email.' => 'Пользователя с таким email не существует.',
     'This email address has already been taken.' => 'Данный email уже занят.',
-    'This page is for registered users. If it\'s not about you, you can go through a simple ' => 
+    'This page is for registered users. If it\'s not about you, you can go through a simple' => 
         'Эта страница для зарегистрированных пользователей. Если это не про вас, то вы можете воспользоваться ссылкой ',
     'This username has already been taken.' => 'Это имя пользователя уже занято.',
     'To signup' => 'Зарегистрироваться',
@@ -60,9 +60,12 @@ return [
     'Users' => 'Пользователи',
     'Wrong password reset token.' => 'Не верный токен восстановления пароля.',
     'Wrong user activation token.' => 'Не верный токен активации пользователя.',
+    'You are registered, but you belong to a group that is not allowed to enter this part of the site.' => 
+        'Вы зарегистрированы, но принадлежите к группе, которой не разрешен вход в эту часть сайта',
     'You can request a password change if you have already registered.' => 'Вы можете запросить изменение пароля если уже были зарегистрированы.',
     'registration' => 'регистрация',
     'reset it' => 'восстановить его',
+    '{name}\'s profile was successfully updated.' => 'Профайл {name} успешно обновлен.',
     '{name}, thank you for registering on the {website} website, check email, to complete the procedure.' => 
 		'{name}, спасибо за регистрацию на сайте {website}, проверьте, указанную при регистрации, почту для завершения процедуры.',
 ];

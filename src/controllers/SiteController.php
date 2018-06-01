@@ -9,12 +9,11 @@ use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use sergmoro1\user\Module;
 
+use sergmoro1\user\models\BaseUser as User;
 use sergmoro1\user\models\LoginForm;
 use sergmoro1\user\models\PasswordResetRequestForm;
 use sergmoro1\user\models\ResetPasswordForm;
 use sergmoro1\user\models\SignupForm;
-
-use common\models\User;
 
 /**
  * Site controller
@@ -222,7 +221,7 @@ class SiteController extends Controller
 				)
 			);
 
-		return $this->goHome();
+		return ($url = Url::previous()) ? $this->redirect($url . '#leave-comment') : $this->goHome();
     }
 
 	private function toFrontend()
