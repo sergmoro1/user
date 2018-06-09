@@ -29,6 +29,7 @@ return [
     'If you forgot your password you can' => 'Если вы забыли пароль, вы можете',
     'Incorrect username or password.' => 'Не верное имя пользователя или пароль.',
     'Login' => 'Вход',
+    'You can log in using the social network.' => 'Можно войти, используя социальную сеть.',
     'Modified' => 'Изменено',
     'Name' => 'Имя',
     'New password was saved.' => 'Новый пароль сохранен.',
