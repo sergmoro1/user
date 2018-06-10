@@ -9,9 +9,9 @@ use sergmoro1\user\Module;
 <?php foreach($credentials as $id => $client): ?>
 	<span class="fa-stack fa-lg">
 		<li class="fa fa-circle fa-stack-1x">
-			<a href="<?= Url::to(['site/auth', 'authclient' => $id]) ?>">
+			<a href="<?= Url::to(['site/auth', 'authclient' => $id]) ?>" title="<?= Module::t('core', 'Login with') . ' ' . ucfirst($client->id) ?>">
 			    <i class="fa fa-circle fa-stack-2x"></i>
-			    <i class="fa fa-<?= $icons[$id] ?> fa-stack-1x fa-inverse"></i>
+			    <i class="fab fa-<?= $icons[$id] ?> fa-stack-1x fa-inverse"></i>
 			</a>
 		</li>
 	</span>

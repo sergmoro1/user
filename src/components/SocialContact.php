@@ -72,9 +72,9 @@ class SocialContact extends BaseObject
     {
         if (User::find()->where(['email' => $this->email])->exists()) {
             Yii::$app->getSession()->setFlash('error', [
-                Module::t('core', 'User with {email} for {client} have been exist, but not linked to each other.', [
+                Module::t('core', 'User with {email} for {client} have been exist, but not linked to each other. Try to login with name and password.', [
                     'email' => $this->email,
-                    'client' => $this->id,
+                    'client' => $client_id,
                 ]),
             ]);
         } else {
