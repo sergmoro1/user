@@ -59,7 +59,7 @@ return [
     'User {name} can\'t be activated!' => 'Пользователь {name} не может быть активирован!',
     'User {name} is successfully activated.' => 'Пользователь {name} успешно активирован.',
     'User with {email} for {client} have been exist, but not linked to each other. Try to login with name and password.' => 
-        'Пользователь с {email} для {client} уже существует, но не связан с данной сетью. Войдите с помощью bvtyb и пароля.',
+        'Пользователь с {email} для {client} уже существует, но не связан с данной сетью. Войдите с помощью имени и пароля.',
     'Users' => 'Пользователи',
     'Wrong password reset token.' => 'Не верный токен восстановления пароля.',
     'Wrong user activation token.' => 'Не верный токен активации пользователя.',

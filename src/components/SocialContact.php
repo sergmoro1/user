@@ -60,6 +60,10 @@ class SocialContact extends BaseObject
 			// twitter shows email only the first time
 			$this->email = isset($attributes['email']) ? $attributes['email'] : false;
 			break;
+		case 'ginhub' :
+			$this->name = $attributes['name'];
+			$this->email = isset($attributes['email']) ? $attributes['email'] : false;
+			break;
 		}
 		// if email not setted then make it
 		if (!$this->email)
