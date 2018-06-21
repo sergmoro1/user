@@ -6,6 +6,8 @@ use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
+use sergmoro1\user\models\SocialLink;
+
 class BaseUser extends ActiveRecord implements IdentityInterface
 {
     const STATUS_ACTIVE = 1;
@@ -136,6 +138,16 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     public function getAuthKey()
     {
         return $this->auth_key;
+    }
+
+    /**
+     * Get user avatar from social link
+     */
+    public function getAvatar()
+    {
+        return SocialLink::find()
+            ->where(['user_id' => $this->id])
+            ->one()->avatar;
     }
 
     /**

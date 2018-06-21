@@ -21,7 +21,10 @@ class SocialContact extends BaseObject
     public $id;
     public $name;
     public $email;
+    public $avatar;
 
+	private $_link;
+	
     /**
      * Retrieve id, name, email and, may be more.
      * 
@@ -34,37 +37,11 @@ class SocialContact extends BaseObject
 		$attributes = $client->getUserAttributes();
 		$this->id = (string)$attributes['id'];
 		
-        switch ($client_id) {
-		case 'yandex' :
-			$this->name = $attributes['first_name'] . ' ' . $attributes['last_name'];
-			$this->email = isset($attributes['default_email']) ? $attributes['default_email'] : false;
-			break;
-		case 'vkontakte' :
-			$this->name = $attributes['first_name'] . ' ' . $attributes['last_name'];
-			$this->email = isset($attributes['email']) ? $attributes['email'] : false;
-			break;
-		case 'odnoklassniki' :
-			$this->name = $attributes['first_name'] . ' ' . $attributes['last_name'];
-			$this->email = isset($attributes['email']) ? $attributes['email'] : false;
-			break;
-		case 'google' :
-			$this->name = $attributes['name']['givenName'] . ' ' . $attributes['name']['familyName'];
-			$this->email = isset($attributes['emails'][0]['value']) ? $attributes['emails'][0]['value'] : false;
-			break;
-		case 'facebook' :
-			$this->name = $attributes['name'];
-			$this->email = isset($attributes['email']) ? $attributes['email'] : false;
-			break;
-		case 'twitter' :
-			$this->name = $attributes['name'];
-			// twitter shows email only the first time
-			$this->email = isset($attributes['email']) ? $attributes['email'] : false;
-			break;
-		case 'ginhub' :
-			$this->name = $attributes['name'];
-			$this->email = isset($attributes['email']) ? $attributes['email'] : false;
-			break;
-		}
+		// convert from individual to a single view of attributes
+		$class_name = 'sergmoro1\\user\\components\\convertor\\' . ucfirst($client_id);
+		$convertor = new $class_name();
+		$convertor->set($this, $attributes);
+		
 		// if email not setted then make it
 		if (!$this->email)
 			$this->email = "{$attributes['id']}@{$client_id}.net";
@@ -93,16 +70,11 @@ class SocialContact extends BaseObject
             $user->generatePasswordResetToken();
             $transaction = $user->getDb()->beginTransaction();
             if ($user->save()) {
-                $social_link = new SocialLink([
-                    'user_id' => $user->id,
-                    'source' => $client_id,
-                    'source_id' => $this->id,
-                ]);
-                if ($social_link->save()) {
+                if ($this->makeLink($client_id, $user->id)) {
                     $transaction->commit();
                     Yii::$app->user->login($user);
                 } else {
-                    throw new InvalidValueException($this->showErrors($social_link)); 
+                    throw new InvalidValueException($this->showErrors($this->_link)); 
                 }
             } else {
                 throw new InvalidValueException($this->showErrors($user)); 
@@ -110,6 +82,17 @@ class SocialContact extends BaseObject
         }
     }
     
+    public function makeLink($client_id, $user_id)
+    {
+		$this->_link = new SocialLink([
+			'user_id' => $user_id,
+			'source' => $client_id,
+			'source_id' => $this->id,
+			'avatar' => $this->avatar,
+		]);
+		return $this->_link->save();
+	}
+	
     private function showErrors($model)
     {
 		$out = 'Can\'t save ' . $model->tableName() . "\n";
