@@ -43,8 +43,8 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-			'name' => Module::t('core', 'Name'),
-			'password' => Module::t('core', 'Password'),
+            'name' => Module::t('core', 'Name'),
+            'password' => Module::t('core', 'Password'),
         ];
     }
 

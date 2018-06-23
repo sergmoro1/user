@@ -20,9 +20,9 @@ class SocialLink extends ActiveRecord
     public function rules()
     {
         return [
-			[['user_id', 'source', 'source_id'], 'required'],
+            [['user_id', 'source', 'source_id'], 'required'],
             ['user_id', 'integer'],
-			[['source', 'source_id', 'avatar'], 'string', 'max'=>255],
+            [['source', 'source_id', 'avatar'], 'string', 'max'=>255],
         ];
     }
 

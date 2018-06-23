@@ -72,5 +72,5 @@ return [
     'reset it' => 'восстановить его',
     '{name}\'s profile was successfully updated.' => 'Профайл {name} успешно обновлен.',
     '{name}, thank you for registering on the {website} website, check email, to complete the procedure.' => 
-		'{name}, спасибо за регистрацию на сайте {website}, проверьте, указанную при регистрации, почту для завершения процедуры.',
+        '{name}, спасибо за регистрацию на сайте {website}, проверьте, указанную при регистрации, почту для завершения процедуры.',
 ];

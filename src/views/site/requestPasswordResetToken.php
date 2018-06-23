@@ -19,19 +19,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+    <?php echo $form->errorSummary($model); ?>
 
-	<?= $form->field($model, 'email')
-		->textInput(['placeholder' => $model->getAttributeLabel('email')])
-		->label($model->getAttributeLabel('email'))
-	?>
+    <?= $form->field($model, 'email')
+        ->textInput(['placeholder' => $model->getAttributeLabel('email')])
+        ->label($model->getAttributeLabel('email'))
+    ?>
 
-	<br>
-	<?= Html::submitButton(Module::t('core', 'Submit'), [
-		'class' => 'btn btn-default', 
-		'name' => 'submit-button',
-	]); ?>
-	<br><br>
+    <br>
+    <?= Html::submitButton(Module::t('core', 'Submit'), [
+        'class' => 'btn btn-default', 
+        'name' => 'submit-button',
+    ]); ?>
+    <br><br>
 
 <?php ActiveForm::end(); ?>
 

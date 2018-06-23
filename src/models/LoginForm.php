@@ -11,8 +11,8 @@ use common\models\User;
  */
 class LoginForm extends Model
 {
-	public $groups = [];
-	
+    public $groups = [];
+    
     public $name;
     public $password;
     public $rememberMe = true;
@@ -77,9 +77,9 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-			'name' => Module::t('core', 'Name'),
-			'password' => Module::t('core', 'Password'),
-			'rememberMe' => Module::t('core', 'Remember me'),
+            'name' => Module::t('core', 'Name'),
+            'password' => Module::t('core', 'Password'),
+            'rememberMe' => Module::t('core', 'Remember me'),
         ];
     }
 

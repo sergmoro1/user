@@ -21,44 +21,44 @@ $this->title = Module::t('core', 'Users');
         'layout' => "{items}\n{summary}\n{pager}",
         'columns' => [
             [
-				'attribute' => 'id',
-				'options' => ['style' => 'width:4%;'],
-			],
-			[
-				'header' => 'thumb',
-				'format' => 'html',
-				'value' => function($data) {
-					return Html::img($data->getImage('thumb'), ['class' => 'img-responsive']);
-				}
-			],
-			'name',
-			'email',
-			[
-				'attribute' => 'status',
-				'filter' => Lookup::items('UserStatus'),
-				'value' => function($data) {
-					return Lookup::item('UserStatus', $data->status);
-				}
-			],
-			[
-				'attribute' => 'group',
-				'filter' => Lookup::items('UserRole'),
-				'value' => function($data) {
-					return Lookup::item('UserRole', $data->group);
-				}
-			],
+                'attribute' => 'id',
+                'options' => ['style' => 'width:4%;'],
+            ],
             [
-				'attribute' => 'created_at',
-				'value' => function($data) {
-					return date('d.m.y', $data->created_at);
-				},
-				'options' => ['style' => 'width:9%;'],
-			],
+                'header' => 'thumb',
+                'format' => 'html',
+                'value' => function($data) {
+                    return Html::img($data->getImage('thumb'), ['class' => 'img-responsive']);
+                }
+            ],
+            'name',
+            'email',
             [
-				'class' => 'yii\grid\ActionColumn',
-				'template' => '{update}{delete}', 
-				'options' => ['style' => 'width:6%;'],
-			],
+                'attribute' => 'status',
+                'filter' => Lookup::items('UserStatus'),
+                'value' => function($data) {
+                    return Lookup::item('UserStatus', $data->status);
+                }
+            ],
+            [
+                'attribute' => 'group',
+                'filter' => Lookup::items('UserRole'),
+                'value' => function($data) {
+                    return Lookup::item('UserRole', $data->group);
+                }
+            ],
+            [
+                'attribute' => 'created_at',
+                'value' => function($data) {
+                    return date('d.m.y', $data->created_at);
+                },
+                'options' => ['style' => 'width:9%;'],
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}{delete}', 
+                'options' => ['style' => 'width:6%;'],
+            ],
         ],
     ]); ?>
 

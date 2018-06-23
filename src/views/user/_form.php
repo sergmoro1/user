@@ -1,5 +1,5 @@
 <style>
-	.en {color: #556b2f;}
+    .en {color: #556b2f;}
 </style>
 
 <?php
@@ -19,50 +19,50 @@ use common\models\User;
 
 <?php $form = ActiveForm::begin(); ?>
 <div class='row'>
-	<div class="col-lg-8">
-		<?= Byone::widget([
-			'model' => $model,
-			'appendixView' => '/user/appendix',
-			'cropAllowed' => true,
-			'draggable' => true,
-		]) ?>
+    <div class="col-lg-8">
+        <?= Byone::widget([
+            'model' => $model,
+            'appendixView' => '/user/appendix',
+            'cropAllowed' => true,
+            'draggable' => true,
+        ]) ?>
 
-		<?= $form->field($model, 'name')
-			->textInput(['maxlength' => true])
-		?>
+        <?= $form->field($model, 'name')
+            ->textInput(['maxlength' => true])
+        ?>
 
-		<?= $form->field($model, 'email')
-			->textInput(['maxlength' => true]) 
-		?>
+        <?= $form->field($model, 'email')
+            ->textInput(['maxlength' => true]) 
+        ?>
 
-		<div class="form-group">
-			<?= Html::submitButton(Module::t('core', 'Save'), [
-				'class' => 'btn btn-success',
-			]) ?>
-		</div>
-	</div>
+        <div class="form-group">
+            <?= Html::submitButton(Module::t('core', 'Save'), [
+                'class' => 'btn btn-success',
+            ]) ?>
+        </div>
+    </div>
 
-	<div class="col-lg-4">
+    <div class="col-lg-4">
 
-		<?php if(\Yii::$app->user->can('gear')): ?>
-		
-		<?= $form->field($model, 'status')->dropdownList(
-			Lookup::items('UserStatus')
-		); ?>
+        <?php if(\Yii::$app->user->can('gear')): ?>
+        
+        <?= $form->field($model, 'status')->dropdownList(
+            Lookup::items('UserStatus')
+        ); ?>
 
-		<?= $form->field($model, 'group')->dropdownList(
-			Lookup::items('UserRole')
-		); ?>
+        <?= $form->field($model, 'group')->dropdownList(
+            Lookup::items('UserRole')
+        ); ?>
 
-		<div class="form-group">
-			<?= Html::submitButton(Module::t('core', 'Save'), [
-				'class' => 'btn btn-success',
-			]) ?>
-		</div>
-		<?php endif; ?>
+        <div class="form-group">
+            <?= Html::submitButton(Module::t('core', 'Save'), [
+                'class' => 'btn btn-success',
+            ]) ?>
+        </div>
+        <?php endif; ?>
         
         <?= $this->render('help') ?>
-	</div>
+    </div>
 </div>
 
 <?php ActiveForm::end(); ?>

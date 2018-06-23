@@ -13,8 +13,8 @@ use sergmoro1\user\models\UserSearch;
 
 class UserController extends Controller
 {
-	public $_model = null;
-	
+    public $_model = null;
+    
     public function behaviors()
     {
         return [
@@ -33,16 +33,16 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-		if (\Yii::$app->user->can('index', [], false)) {
-			$searchModel = new UserSearch();
-			$dataProvider = $searchModel->search(\Yii::$app->request->get());
+        if (\Yii::$app->user->can('index', [], false)) {
+            $searchModel = new UserSearch();
+            $dataProvider = $searchModel->search(\Yii::$app->request->get());
 
-			return $this->render('index', [
-				'dataProvider' => $dataProvider,
-				'searchModel' => $searchModel,
-			]);
-		} else
-			throw new ForbiddenHttpException(Module::t('core', 'Access denied.'));
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        } else
+            throw new ForbiddenHttpException(Module::t('core', 'Access denied.'));
     }
 
     /**
@@ -53,28 +53,28 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-		$model = $this->findModel($id);
-		if (\Yii::$app->user->can('update', ['user' => $model])) {
-			if ($model->load(\Yii::$app->request->post()) && $model->save()) {
-				if(\Yii::$app->user->identity->group == User::GROUP_COMMENTATOR) {
-					\Yii::$app->session->setFlash(
-						'success', 
-						Module::t('core', 
-							'{name}\'s profile was successfully updated.', 
-							['name' => \Yii::$app->user->identity->name]
-						)
-					);
-					
-				    return $this->redirect(['/blog/site/index']);
-				} else
-				    return $this->redirect(['index']);
-			} else {
-				return $this->render('update', [
-					'model' => $model,
-				]);
-			}
-		} else
-			throw new ForbiddenHttpException(Module::t('core', 'Access denied.'));
+        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('update', ['user' => $model])) {
+            if ($model->load(\Yii::$app->request->post()) && $model->save()) {
+                if(\Yii::$app->user->identity->group == User::GROUP_COMMENTATOR) {
+                    \Yii::$app->session->setFlash(
+                        'success', 
+                        Module::t('core', 
+                            '{name}\'s profile was successfully updated.', 
+                            ['name' => \Yii::$app->user->identity->name]
+                        )
+                    );
+                    
+                    return $this->redirect(['/blog/site/index']);
+                } else
+                    return $this->redirect(['index']);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        } else
+            throw new ForbiddenHttpException(Module::t('core', 'Access denied.'));
     }
 
     /**
@@ -85,15 +85,15 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-		if (!\Yii::$app->user->can('delete'))
-			throw new ForbiddenHttpException(\Module::t('core', 'Access denied.'));
+        if (!\Yii::$app->user->can('delete'))
+            throw new ForbiddenHttpException(\Module::t('core', 'Access denied.'));
 
         $model = $this->findModel($id);
-		foreach($model->files as $file)
-			$file->delete();
-		$model->delete();
+        foreach($model->files as $file)
+            $file->delete();
+        $model->delete();
 
-		return $this->redirect(['index']);
+        return $this->redirect(['index']);
     }
 
     /**
@@ -106,14 +106,14 @@ class UserController extends Controller
      */
     public function findModel($id)
     {
-		if($this->_model === null) 
-		{
-			if($this->_model = $id ? User::findOne($id) : null) 
-			{
-				return $this->_model;
-			} else {
-				throw new NotFoundHttpException(Module::t('core', 'The requested model does not exist.'));
-			}
-		}
-	}
+        if($this->_model === null) 
+        {
+            if($this->_model = $id ? User::findOne($id) : null) 
+            {
+                return $this->_model;
+            } else {
+                throw new NotFoundHttpException(Module::t('core', 'The requested model does not exist.'));
+            }
+        }
+    }
 }

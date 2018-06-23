@@ -17,19 +17,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+    <?php echo $form->errorSummary($model); ?>
 
-	<?= $form->field($model, 'password')
-		->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
-		->label($model->getAttributeLabel('password'))
-	?>
+    <?= $form->field($model, 'password')
+        ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
+        ->label($model->getAttributeLabel('password'))
+    ?>
 
-	<br>
-	<?= Html::submitButton(Module::t('core', 'Save'), [
-		'class' => 'btn btn-default', 
-		'name' => 'save-button',
-	]); ?>
-	<br><br>
+    <br>
+    <?= Html::submitButton(Module::t('core', 'Save'), [
+        'class' => 'btn btn-default', 
+        'name' => 'save-button',
+    ]); ?>
+    <br><br>
 
 <?php ActiveForm::end(); ?>
 

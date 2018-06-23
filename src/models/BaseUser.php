@@ -31,36 +31,36 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-			[['name', 'email'], 'required'],
+            [['name', 'email'], 'required'],
             [['status', 'group'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ARCHIVED],
             ['status', 'in', 'range' => [self::STATUS_ARCHIVED, self::STATUS_ACTIVE]],
             ['group', 'default', 'value' => self::GROUP_COMMENTATOR],
             ['group', 'in', 'range' => [self::GROUP_ADMIN, self::GROUP_AUTHOR, self::GROUP_COMMENTATOR]],
-			[['name', 'email', 'password_hash', 'password_reset_token'], 'string', 'max'=>255],
-			['email', 'email'],
-			[['auth_key'], 'string', 'max'=>32],
+            [['name', 'email', 'password_hash', 'password_reset_token'], 'string', 'max'=>255],
+            ['email', 'email'],
+            [['auth_key'], 'string', 'max'=>32],
             [['created_at', 'updated_at'], 'safe'],
         ];
     }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return [
-			'name' => \Yii::t('app', 'Name'),
-			'password' => \Yii::t('app', 'Password'),
-			'password_repeat' => \Yii::t('app', 'Repeat the passport'),
-			'email' => \Yii::t('app', 'Email'),
-			'group' => \Yii::t('app', 'Group'),
-			'status' => \Yii::t('app', 'Status'),
-			'verifyCode' => \Yii::t('app', 'Spam protection code'),
-			'created_at' => \Yii::t('app', 'Created'),
-			'updated_at' => \Yii::t('app', 'Modified'),
-		];
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return [
+            'name' => \Yii::t('app', 'Name'),
+            'password' => \Yii::t('app', 'Password'),
+            'password_repeat' => \Yii::t('app', 'Repeat the passport'),
+            'email' => \Yii::t('app', 'Email'),
+            'group' => \Yii::t('app', 'Group'),
+            'status' => \Yii::t('app', 'Status'),
+            'verifyCode' => \Yii::t('app', 'Spam protection code'),
+            'created_at' => \Yii::t('app', 'Created'),
+            'updated_at' => \Yii::t('app', 'Modified'),
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -211,20 +211,20 @@ class BaseUser extends ActiveRecord implements IdentityInterface
         return Lookup::item('UserRole', $role);
     }
 
-	/**
-	 * This is invoked before the record is saved.
-	 * @return boolean whether the record should be saved.
-	 */
-	public function beforeSave($insert)
-	{
-		if(parent::beforeSave($insert))
-		{
-			$this->updated_at = time();
-			if($this->isNewRecord)
-				$this->created_at = $this->updated_at;
-			return true;
-		}
-		else
-			return false;
-	}
+    /**
+     * This is invoked before the record is saved.
+     * @return boolean whether the record should be saved.
+     */
+    public function beforeSave($insert)
+    {
+        if(parent::beforeSave($insert))
+        {
+            $this->updated_at = time();
+            if($this->isNewRecord)
+                $this->created_at = $this->updated_at;
+            return true;
+        }
+        else
+            return false;
+    }
 }

@@ -99,7 +99,7 @@ class SiteController extends Controller
     {
         \Yii::$app->user->logout();
 
-		return $this->redirect($this->toFrontend());
+        return $this->redirect($this->toFrontend());
     }
     
     /**
@@ -117,13 +117,13 @@ class SiteController extends Controller
         if ($model->load(\Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if ($model->sendEmail($user)) {
-					\Yii::$app->session->setFlash(
-						'success', 
-						Module::t('core', 
-							'{name}, thank you for registering on the {website} website, check email, to complete the procedure.', 
-							['name' => $user->name, 'website' => \Yii::$app->name]
-						)
-					);
+                    \Yii::$app->session->setFlash(
+                        'success', 
+                        Module::t('core', 
+                            '{name}, thank you for registering on the {website} website, check email, to complete the procedure.', 
+                            ['name' => $user->name, 'website' => \Yii::$app->name]
+                        )
+                    );
                     return $this->goHome();
                 }
             }
@@ -202,32 +202,32 @@ class SiteController extends Controller
         if (!$user) {
             throw new InvalidParamException(Module::t('core', 'Wrong user activation token.'));
         }
-		$user->status = User::STATUS_ACTIVE;
+        $user->status = User::STATUS_ACTIVE;
         if($user->save())
-			\Yii::$app->session->setFlash(
-				'success', 
-				Module::t('core', 
-					'User {name} is successfully activated.', 
-					['name' => $user->name]
-				)
-			);
-		else
-			\Yii::$app->session->setFlash(
-				'error', 
-				Module::t('core', 
-					'User {name} can\'t be activated!', 
-					['name' => $user->name]
-				)
-			);
+            \Yii::$app->session->setFlash(
+                'success', 
+                Module::t('core', 
+                    'User {name} is successfully activated.', 
+                    ['name' => $user->name]
+                )
+            );
+        else
+            \Yii::$app->session->setFlash(
+                'error', 
+                Module::t('core', 
+                    'User {name} can\'t be activated!', 
+                    ['name' => $user->name]
+                )
+            );
 
-		return ($url = Url::previous()) ? $this->redirect($url . '#leave-comment') : $this->goHome();
+        return ($url = Url::previous()) ? $this->redirect($url . '#leave-comment') : $this->goHome();
     }
 
-	private function toFrontend()
-	{
-		return str_replace('back', 'front', (Url::base()
-			? Url::base()
-			: \Yii::$app->request->hostInfo
-		));
-	}
+    private function toFrontend()
+    {
+        return str_replace('back', 'front', (Url::base()
+            ? Url::base()
+            : \Yii::$app->request->hostInfo
+        ));
+    }
 }
