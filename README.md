@@ -104,11 +104,11 @@ class SiteController extends Controller
                 $user = $social_link->user;
                 Yii::$app->user->login($user);
             } else { // registration
-				$social_contact->registration($client->getId());
+                $social_contact->registration($client->getId());
             }
         } else { // the user is already registered
             if (!$social_link) { // add external service of authentification
-				$social_contact->makeLink($client->getId(), Yii::$app->user->id);
+                $social_contact->makeLink($client->getId(), Yii::$app->user->id);
             }
         }
     }
