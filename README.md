@@ -8,6 +8,7 @@ Used with sergmoro1/yii2-blog-tools module but can be used separately.
   <li>registration;</li>
   <li>email confirmation;</li>
   <li>authentification;</li>
+  <li>social networks OAuth authentification, avatar available (Yandex, Vkontakte, Google, GitHub);</li>
   <li>users management.</li>
 </ul>
 
@@ -41,6 +42,16 @@ return [
         'user' => ['class' => 'sergmoro1\user\Module'],
     ],
     'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'yandex' => [
+                    'class' => 'yii\authclient\clients\Yandex',
+                    'clientId' => 'YandexClientId',
+                    'clientSecret' => 'YandexClientSecret',
+                ],
+                ...
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => false,
