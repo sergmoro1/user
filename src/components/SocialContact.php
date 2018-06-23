@@ -61,6 +61,12 @@ class SocialContact extends BaseObject
             ]);
         } else {
             if(User::find()->where(['name' => $this->name])->exists()) {
+                Yii::$app->getSession()->setFlash('error', [
+                    Module::t('core', 'A user named {name} already exists. Try logging in if you have registered before.', [
+                        'name' => $this->name,
+                    ]),
+                ]);
+            } else {
                 $password = Yii::$app->security->generateRandomString(6);
                 $user = new User([
                     'name' => $this->name,
@@ -82,12 +88,6 @@ class SocialContact extends BaseObject
                 } else {
                     throw new InvalidValueException($this->showErrors($user)); 
                 }
-            } else {
-                Yii::$app->getSession()->setFlash('error', [
-                    Module::t('core', 'A user named {name} already exists. Try logging in if you have registered before.', [
-                        'name' => $this->name,
-                    ]),
-                ]);
             }
         }
     }

@@ -17,6 +17,8 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'A user named {name} already exists. Try logging in if you have registered before.' =>
+        'Пользователь {name} уже существует. Попытайтесь войти, если вы зарегистрировались прежде.',
     'Access denied.' => 'Доступ запрещен',
     'Access to content management' => 'Доступ к управлению контентом',
     'Check your email for further instructions.' => 'Проверьте указанную почту для дальнейших инструкций.',
@@ -60,8 +62,6 @@ return [
     'User {name} is successfully activated.' => 'Пользователь {name} успешно активирован.',
     'User with {email} have been exist, but not linked to {client}. Try to login with other social network or with name and password.' => 
         'Пользователь с {email} уже существует, но не связан с {client}. Войдите с помощью другой сети или с помощью имени и пароля.',
-    'A user named {name} already exists. Try logging in if you have registered before.' =>
-        'Пользователь {name} уже существует. Попытайтесь войти, если вы зарегистрировались прежде.'
     'Users' => 'Пользователи',
     'Wrong password reset token.' => 'Не верный токен восстановления пароля.',
     'Wrong user activation token.' => 'Не верный токен активации пользователя.',
