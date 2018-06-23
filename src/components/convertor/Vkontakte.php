@@ -6,6 +6,6 @@ class Vkontakte implements Convertor {
     {
 		$obj->name = $attributes['first_name'] . ' ' . $attributes['last_name'];
 		$obj->email = isset($attributes['email']) ? $attributes['email'] : false;
-		$obj->avatar = isset($attributes['photo_100']) ? $attributes['photo_100'] : false;
+		$obj->avatar = isset($attributes['photo']) ? $attributes['photo'] : '';
     }
 }

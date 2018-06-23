@@ -8,6 +8,6 @@ class Yandex implements Convertor {
 		$obj->email = isset($attributes['default_email']) ? $attributes['default_email'] : false;
 		$obj->avatar = isset($attributes['default_avatar_id'])
 			? "https://avatars.yandex.net/get-yapic/{$attributes['default_avatar_id']}/islands-retina-50"
-			: false;
+			: '';
     }
 }

@@ -6,6 +6,6 @@ class Github implements Convertor {
     {
 		$obj->name = $attributes['name'];
 		$obj->email = isset($attributes['email']) ? $attributes['email'] : false;
-		$obj->avatar = isset($attributes['owner']['avatar_url']) ? $attributes['owner']['avatar_url'] : false;
+		$obj->avatar = isset($attributes['owner']['avatar_url']) ? $attributes['owner']['avatar_url'] : '';
     }
 }

@@ -22,7 +22,7 @@ class SocialContact extends BaseObject
     public $name;
     public $email;
     public $avatar;
-
+    
 	private $_link;
 	
     /**
@@ -53,32 +53,42 @@ class SocialContact extends BaseObject
     {
         if (User::find()->where(['email' => $this->email])->exists()) {
             Yii::$app->getSession()->setFlash('error', [
-                Module::t('core', 'User with {email} for {client} have been exist, but not linked to each other. Try to login with name and password.', [
+                Module::t('core', 'User with {email} have been exist, but not linked to {client}. ' . 
+                    'Try to login with other social network or with name and password.', [
                     'email' => $this->email,
                     'client' => $client_id,
                 ]),
             ]);
         } else {
-            $password = Yii::$app->security->generateRandomString(6);
-            $user = new User([
-                'name' => $this->name,
-                'email' => $this->email,
-                'password' => $password,
-                'status' => User::STATUS_ACTIVE,
-            ]);
-            $user->generateAuthKey();
-            $user->generatePasswordResetToken();
-            $transaction = $user->getDb()->beginTransaction();
-            if ($user->save()) {
-                if ($this->makeLink($client_id, $user->id)) {
-                    $transaction->commit();
-                    Yii::$app->user->login($user);
+            if(User::find()->where(['name' => $this->name])->exists()) {
+                $password = Yii::$app->security->generateRandomString(6);
+                $user = new User([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'password' => $password,
+                    'status' => User::STATUS_ACTIVE,
+                ]);
+                $user->generateAuthKey();
+                $user->generatePasswordResetToken();
+                $transaction = $user->getDb()->beginTransaction();
+                
+                if ($user->save()) {
+                    if ($this->makeLink($client_id, $user->id)) {
+                        $transaction->commit();
+                        Yii::$app->user->login($user);
+                    } else {
+                        throw new InvalidValueException($this->showErrors($this->_link)); 
+                    }
                 } else {
-                    throw new InvalidValueException($this->showErrors($this->_link)); 
+                    throw new InvalidValueException($this->showErrors($user)); 
                 }
             } else {
-                throw new InvalidValueException($this->showErrors($user)); 
-            }
+				Yii::$app->getSession()->setFlash('error', [
+					Module::t('core', 'A user named {name} already exists. Try logging in if you have registered before.', [
+						'name' => $this->name,
+					]),
+				]);
+			}
         }
     }
     

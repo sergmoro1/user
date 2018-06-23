@@ -6,6 +6,6 @@ class Odnoklassniki implements Convertor {
     {
 		$obj->name = $attributes['first_name'] . ' ' . $attributes['last_name'];
 		$obj->email = isset($attributes['email']) ? $attributes['email'] : false;
-		$obj->avatar = isset($attributes['pic_2']) ? $attributes['pic_2'] : false;
+		$obj->avatar = isset($attributes['pic_2']) ? $attributes['pic_2'] : '';
     }
 }
