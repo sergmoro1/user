@@ -7,13 +7,18 @@ use yii\db\Migration;
  */
 class m180515_085230_lookup_fill extends Migration
 {
+	const TABLE = '{{%lookup}}';
+	const PID = 1; // property ID
+
     public function up()
     {
-        $this->insert('{{%lookup}}', ['name' => 'Комментатор', 'code' => 3, 'type' => 'UserRole', 'position' => 3]);
+		$i = self::PID;
+        $this->insert(self::TABLE, ['name' => 'Комментатор', 'code' => 3, 'property_id' => $i, 'position' => 3]);
     }
 
     public function down()
     {
-        $this->delete('{{%lookup}}', 'type=:type AND code=3', [':type' => 'UserRole']);
+		$i = self::PID;
+        $this->delete(self::TABLE, 'property_id=:property_id AND code=3', [':property_id' => $i]);
     }
 }

@@ -35,39 +35,40 @@ Set up in <code>backend/config/main.php</code> or <code>common/config/main.php</
 
 <pre>
 return [
-    ...
-    'modules' => [
-        'uploader' => ['class' => 'sergmoro1\uploader\Module'],
-        'lookup' => ['class' => 'sergmoro1\lookup\Module'],
-        'user' => ['class' => 'sergmoro1\user\Module'],
-    ],
-    'components' => [
-        'authClientCollection' => [
-            'class' => 'yii\authclient\Collection',
-            'clients' => [
-                'yandex' => [
-                    'class' => 'yii\authclient\clients\Yandex',
-                    'clientId' => 'YandexClientId',
-                    'clientSecret' => 'YandexClientSecret',
-                ],
-                ...
+  ...
+  'modules' =&gt; [
+    'uploader' =&gt; ['class' =&gt; 'sergmoro1\uploader\Module'],
+    'lookup' =&gt; ['class' =&gt; 'sergmoro1\lookup\Module'],
+    'user' =&gt; ['class' =&gt; 'sergmoro1\user\Module'],
+  ],
+  'components' =&gt; [
+    'authClientCollection' =&gt; [
+      'class' =&gt; 'yii\authclient\Collection',
+      'clients' =&gt; [
+        'yandex' =&gt; [
+          'class' =&gt; 'yii\authclient\clients\Yandex',
+          'clientId' =&gt; 'YandexClientId',
+          'clientSecret' =&gt; 'YandexClientSecret',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => false,
-            'viewPath' => '@vendor/sergmoro1/yii2-user/src/mail',
-            /* Definition of Yandex post office for your domain (example).
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.yandex.ru',
-                'username' => 'admin@your-site.ru',
-                'password' => 'your-password',
-                'port' => '465',
-                'encryption' => 'ssl',
-            ],
-            */
+        ...
+      ],
+      'mailer' =&gt; [
+        'class' =&gt; 'yii\swiftmailer\Mailer',
+        'useFileTransport' =&gt; false,
+        'viewPath' =&gt; '@vendor/sergmoro1/yii2-user/src/mail',
+        /* Definition of Yandex post office for your domain (example).
+        'transport' =&gt; [
+          'class' =&gt; 'Swift_SmtpTransport',
+          'host' =&gt; 'smtp.yandex.ru',
+          'username' =&gt; 'admin@your-site.ru',
+          'password' =&gt; 'your-password',
+          'port' =&gt; '465',
+          'encryption' =&gt; 'ssl',
         ],
+        */
+      ],
     ],
+  ],
 </pre>
 
 Add action for OAuth2 authontification with social network accounts to <code>frontend/controllers/SiteController.php</code>.
@@ -83,9 +84,9 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'auth' => [
-                'class' => 'yii\authclient\AuthAction',
-                'successCallback' => [$this, 'onAuthSuccess'],
+            'auth' =&gt; [
+                'class' =&gt; 'yii\authclient\AuthAction',
+                'successCallback' =&gt; [$this, 'onAuthSuccess'],
             ],
         ];
     }
@@ -94,21 +95,20 @@ class SiteController extends Controller
     {
         $social_contact = new SocialContact($client);
 
-        $social_link = SocialLink::find()->where([
-            'source' => $client->getId(),
-            'source_id' => $social_contact->id,
-        ])->one();
+        $social_link = SocialLink::find()-&gt;where([
+            'source' =&gt; $client-&gt;getId(),
+            'source_id' =&gt; $social_contact-&gt;id,
+        ])-&gt;one();
         
-        if (Yii::$app->user->isGuest) {
+        if (Yii::$app-&gt;user-&gt;isGuest) {
             if ($social_link) { // authorization
-                $user = $social_link->user;
-                Yii::$app->user->login($user);
+                Yii::$app-&gt;user-&gt;login($social_link-&gt;user);
             } else { // registration
-                $social_contact->registration($client->getId());
+                $social_contact-&gt;registration($client-&gt;getId());
             }
         } else { // the user is already registered
             if (!$social_link) { // add external service of authentification
-                $social_contact->makeLink($client->getId(), Yii::$app->user->id);
+                $social_contact-&gt;makeLink($client-&gt;getId(), Yii::$app-&gt;user-&gt;id);
             }
         }
     }
