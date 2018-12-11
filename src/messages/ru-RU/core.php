@@ -56,7 +56,7 @@ return [
         'Эта страница для зарегистрированных пользователей. Если это не про вас, то вы можете воспользоваться ссылкой ',
     'This username has already been taken.' => 'Это имя пользователя уже занято.',
     'To signup' => 'Зарегистрироваться',
-    'Update' => 'Изменения',
+    'Update' => 'Изменить',
     'User activation token cannot be blank.' => 'Токен активации пользователя не может быть пустым.',
     'User {name} can\'t be activated!' => 'Пользователь {name} не может быть активирован!',
     'User {name} is successfully activated.' => 'Пользователь {name} успешно активирован.',

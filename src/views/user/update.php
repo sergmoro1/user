@@ -8,6 +8,7 @@ use sergmoro1\user\Module;
 
 $this->title = Module::t('core', 'Update');
 $this->params['breadcrumbs'][] = ['label' => Module::t('core', 'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->name;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
