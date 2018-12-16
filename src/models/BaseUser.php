@@ -6,6 +6,7 @@ use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
+use sergmoro1\user\Module;
 use sergmoro1\user\models\SocialLink;
 
 class BaseUser extends ActiveRecord implements IdentityInterface
@@ -38,7 +39,9 @@ class BaseUser extends ActiveRecord implements IdentityInterface
             ['group', 'default', 'value' => self::GROUP_COMMENTATOR],
             ['group', 'in', 'range' => [self::GROUP_ADMIN, self::GROUP_AUTHOR, self::GROUP_COMMENTATOR]],
             [['name', 'email', 'password_hash', 'password_reset_token'], 'string', 'max'=>255],
+            ['name', 'unique', 'targetClass' => '\common\models\User', 'message' => Module::t('core', 'This username has already been taken.')],
             ['email', 'email'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Module::t('core', 'This email address has already been taken.')],
             [['auth_key'], 'string', 'max'=>32],
             [['created_at', 'updated_at'], 'safe'],
         ];
