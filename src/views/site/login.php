@@ -11,6 +11,7 @@ use yii\bootstrap\ActiveForm;
 use sergmoro1\user\Module;
 
 $this->title = Module::t('core', 'Login');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
