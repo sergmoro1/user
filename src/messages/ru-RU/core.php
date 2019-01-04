@@ -31,7 +31,7 @@ return [
     'If you forgot your password you can' => 'Если вы забыли пароль, вы можете',
     'Incorrect username or password.' => 'Не верное имя пользователя или пароль.',
     'Login' => 'Вход',
-    'You can log in using the social network.' => 'Можно войти, используя социальную сеть.',
+    'Login with' => 'Авторизоваться с помощью',
     'Modified' => 'Изменено',
     'Name' => 'Имя',
     'New password was saved.' => 'Новый пароль сохранен.',
@@ -67,6 +67,7 @@ return [
     'Wrong user activation token.' => 'Не верный токен активации пользователя.',
     'You are registered, but you belong to a group that is not allowed to enter this part of the site.' => 
         'Вы зарегистрированы, но принадлежите к группе, которой не разрешен вход в эту часть сайта',
+    'You can log in using the social network.' => 'Можно авторизоваться, используя социальную сеть.',
     'You can request a password change if you have already registered.' => 'Вы можете запросить изменение пароля если уже были зарегистрированы.',
     'registration' => 'регистрация',
     'reset it' => 'восстановить его',

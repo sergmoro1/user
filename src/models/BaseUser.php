@@ -148,9 +148,9 @@ class BaseUser extends ActiveRecord implements IdentityInterface
      */
     public function getAvatar()
     {
-        return SocialLink::find()
+        return $link = SocialLink::find()
             ->where(['user_id' => $this->id])
-            ->one()->avatar;
+            ->one() ? $link->avatar : '';
     }
 
     /**
