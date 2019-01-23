@@ -3,9 +3,7 @@ use yii\helpers\Url;
 use sergmoro1\user\Module;
 ?>
 
-<p><?= Module::t('core', 'You can log in using the social network.') ?></p>
-
-<ul class="list-inline">
+<ul class="list-inline social-credencials"><?= $call ?>
 <?php foreach($credentials as $id => $client): ?>
     <span class="fa-stack fa-lg">
         <li class="fa fa-circle fa-stack-1x">

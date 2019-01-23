@@ -2,15 +2,19 @@
 namespace sergmoro1\user\widgets;
 
 use yii\base\Widget;
+use sergmoro1\user\Module;
 
 class SocialCredentials extends Widget
 {
-    public $view = 'socialCredentials';
+    public $call = '';
+    public $viewFile = 'socialCredentials';
     public $credentials = [];
     public $icons = [];
     
     public function init() {
         parent::init();
+        if($this->call === '')
+            $this->call = Module::t('core', 'You can log in using the social network');
         if(!$this->credentials)
             $this->credentials = \Yii::$app->get('authClientCollection')->clients;
         if(!$this->icons)
@@ -19,7 +23,8 @@ class SocialCredentials extends Widget
     
     public function run()
     {
-        echo $this->render($this->view, [
+        echo $this->render($this->viewFile, [
+            'call' => $this->call,
             'credentials' => $this->credentials,
             'icons' => $this->icons,
         ]);

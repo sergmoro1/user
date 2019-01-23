@@ -67,7 +67,7 @@ return [
     'Wrong user activation token.' => 'Не верный токен активации пользователя.',
     'You are registered, but you belong to a group that is not allowed to enter this part of the site.' => 
         'Вы зарегистрированы, но принадлежите к группе, которой не разрешен вход в эту часть сайта',
-    'You can log in using the social network.' => 'Можно авторизоваться, используя социальную сеть.',
+    'You can log in using the social network' => 'Можно авторизоваться, используя социальную сеть',
     'You can request a password change if you have already registered.' => 'Вы можете запросить изменение пароля если уже были зарегистрированы.',
     'registration' => 'регистрация',
     'reset it' => 'восстановить его',
