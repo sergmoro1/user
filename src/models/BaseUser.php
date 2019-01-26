@@ -146,14 +146,14 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     /**
      * Get user avatar from thumb if there is a registered user or social link or icon
      */
-    public function getAvatar($class = '', $icon = 'fa fa-user')
+    public function getAvatar($class = '', $icon = '<i class="fa fa-user"></i>')
     {
         if($image = $this->getImage('thumb'))
             return "<img src='$image' class='$class'>";
         else
-            return $link = SocialLink::find()
+            return ($link = SocialLink::find()
                 ->where(['user_id' => $this->id])
-                ->one() ? "<img src='{$link->avatar}' class='$class'>" : $icon;
+                ->one()) ? "<img src='{$link->avatar}' class='$class'>" : $icon;
     }
 
     /**
