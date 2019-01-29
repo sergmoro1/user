@@ -10,6 +10,7 @@ use sergmoro1\user\Module;
 
 use common\models\User;
 use sergmoro1\user\models\UserSearch;
+use sergmoro1\user\models\LoginForm;
 
 class UserController extends Controller
 {
@@ -115,5 +116,15 @@ class UserController extends Controller
                 throw new NotFoundHttpException(Module::t('core', 'The requested model does not exist.'));
             }
         }
+    }
+
+    public function actionPasswordExists($name, $password)
+    {
+        if(\Yii::$app->getRequest()->isAjax) {
+            $model = User::findByUsername($name);
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $model && $model->validatePassword($password);
+        } else
+            throw new ForbiddenHttpException(Module::t('core', 'Access denied.'));
     }
 }
