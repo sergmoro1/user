@@ -5,10 +5,8 @@ use yii\validators\Validator;
 use sergmoro1\user\Module;
 
 /**
- * Check uniqueness by multiple values. 
- * If the values have not changed, we believe that the uniqueness is preserved. 
- * If one or more values have changed, we looking for a combination in the table. 
- * Error if exists.
+ * Check the existence of the user and if it exists, whether the password is correct. 
+ * Error if not exists together.
  */
 class PasswordExistsValidator extends Validator
 {
