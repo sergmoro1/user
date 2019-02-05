@@ -26,7 +26,7 @@ class LoginForm extends Model
     {
         parent::init();
         if(!$this->urlPasswordExists)
-            $this->urlPasswordExists = Url::to(['user/password-exists']);
+            $this->urlPasswordExists = Url::to(['user/user/password-exists']);
     }
 
 
