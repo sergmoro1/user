@@ -47,9 +47,15 @@ class PasswordResetRequestForm extends Model
             if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
                 $user->generatePasswordResetToken();
             }
-
+			//$viewPath = '@vendor/sergmoro1/yii2-user/src/mail';
             if ($user->save()) {
-                return \Yii::$app->mailer->compose(['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'], ['user' => $user])
+                return \Yii::$app->mailer
+					->compose([
+							'html' => "passwordResetToken-html", 
+							'text' => "passwordResetToken-text",
+						], 
+						['user' => $user]
+					)
                     ->setFrom(\Yii::$app->params['adminEmail'])
                     ->setTo($this->email)
                     ->setSubject(Module::t('core', 'Robot: Password reset for ') . \Yii::$app->name)

@@ -20,6 +20,13 @@ use sergmoro1\user\models\SignupForm;
  */
 class SiteController extends Controller
 {
+    public function init()
+    {
+        parent::init();
+
+        \Yii::$app->mailer->setViewPath('@vendor/sergmoro1/yii2-user/src/mail');
+    }
+
     /**
      * @inheritdoc
      */
