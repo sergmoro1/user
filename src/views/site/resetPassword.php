@@ -13,25 +13,25 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
-<div class="col-lg-6">
+    <div class="col-lg-6">
 
-<?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+        <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-    <?php echo $form->errorSummary($model); ?>
+            <?php echo $form->errorSummary($model); ?>
 
-    <?= $form->field($model, 'password')
-        ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
-        ->label($model->getAttributeLabel('password'))
-    ?>
+            <?= $form->field($model, 'password')
+                ->passwordInput(['placeholder' => true])
+                ->label()
+            ?>
 
-    <br>
-    <?= Html::submitButton(Module::t('core', 'Save'), [
-        'class' => 'btn btn-default', 
-        'name' => 'save-button',
-    ]); ?>
-    <br><br>
+            <p>
+                <?= Html::submitButton(Module::t('core', 'Save'), [
+                    'class' => 'btn btn-default', 
+                    'name' => 'save-button',
+                ]); ?>
+            </p>
 
-<?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
-</div>
+    </div>
 </div>

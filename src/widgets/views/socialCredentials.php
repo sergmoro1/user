@@ -1,6 +1,11 @@
 <?php
+
 use yii\helpers\Url;
 use sergmoro1\user\Module;
+
+/* @var $call string */
+/* @var $credentials yii\authclient\Collection */
+/* @var $icons array */
 ?>
 
 <ul class="list-inline social-credencials"><?= $call ?>

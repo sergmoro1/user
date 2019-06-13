@@ -1,10 +1,7 @@
 <?php
 /**
  * @author - Sergey Morozov <sergmoro1@ya.ru>
- * @license - GPL
- 
  * @var $file - oneFile model record
- * 
  */
 ?>
 

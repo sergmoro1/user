@@ -13,7 +13,7 @@ class UserSearch extends User
         // only fields in rules() are searchable
         return [
             [['id', 'status', 'group'], 'integer'],
-            [['name', 'email'], 'safe'],
+            [['username', 'email'], 'safe'],
         ];
     }
 
@@ -34,7 +34,7 @@ class UserSearch extends User
             ],
             'sort' => [
                 'defaultOrder' => [
-                    'name' => SORT_ASC, 
+                    'username' => SORT_ASC, 
                     'created_at' => SORT_DESC,
                 ]
             ],
@@ -47,7 +47,7 @@ class UserSearch extends User
         
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id])
-            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['status' => $this->status])
             ->andFilterWhere(['group' => $this->group]);

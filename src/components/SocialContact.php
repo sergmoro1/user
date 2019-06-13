@@ -1,10 +1,8 @@
 <?php
 /**
- * @author sergmoro1@ya.ru
- * @license MIT
+ * Class retrieve social contacts depending on social nets.
  * 
- * Retrieve social contacts depending on social nets.
- * 
+ * @author Seregey Morozov <sergey@vorst.ru>
  */
 
 namespace sergmoro1\user\components;
@@ -19,7 +17,7 @@ use sergmoro1\user\Module;
 class SocialContact extends BaseObject
 {
     public $id;
-    public $name;
+    public $username;
     public $email;
     public $avatar;
     
@@ -29,11 +27,11 @@ class SocialContact extends BaseObject
      * Retrieve id, name, email and, may be more.
      * 
      * @param string social client
-     * @param array attributes (OAuth2 response)
      */
     public function __construct($client, $config = [])
     {
         $client_id = $client->getId();
+        // OAuth2 response
         $attributes = $client->getUserAttributes();
         $this->id = (string)$attributes['id'];
         
@@ -60,16 +58,16 @@ class SocialContact extends BaseObject
                 ]),
             ]);
         } else {
-            if(User::find()->where(['name' => $this->name])->exists()) {
+            if(User::find()->where(['username' => $this->username])->exists()) {
                 Yii::$app->getSession()->setFlash('error', [
                     Module::t('core', 'A user named {name} already exists. Try logging in if you have registered before.', [
-                        'name' => $this->name,
+                        'name' => $this->username,
                     ]),
                 ]);
             } else {
                 $password = Yii::$app->security->generateRandomString(6);
                 $user = new User([
-                    'name' => $this->name,
+                    'username' => $this->username,
                     'email' => $this->email,
                     'password' => $password,
                     'status' => User::STATUS_ACTIVE,

@@ -19,9 +19,10 @@ class m180608_123330_create_social_link extends Migration
         }
 
         $this->createTable($this->table, [
-            'id' => $this->primaryKey(),
-            'user_id' => $this->integer()->notNull(),
-            'source' => $this->string(255)->notNull(),
+            'id'        => $this->primaryKey(),
+            'user_id'   => $this->integer()->notNull(),
+            'avatar'    => $this->string(255),
+            'source'    => $this->string(255)->notNull(),
             'source_id' => $this->string(255)->notNull(),
         ], $tableOptions);
 

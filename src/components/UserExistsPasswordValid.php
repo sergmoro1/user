@@ -7,8 +7,10 @@ use sergmoro1\user\Module;
 /**
  * Check the existence of the user and if it exists, whether the password is correct. 
  * Error if not exists together.
+ * 
+ * @author Sergey Morozov <sergey@vorst.ru>
  */
-class PasswordExistsValidator extends Validator
+class UserExistsPasswordValid extends Validator
 {
     public $urlPasswordExists;
     
@@ -36,7 +38,7 @@ class PasswordExistsValidator extends Validator
 var entity = {exists: false};
 $.ajax({
     url: $url, 
-    data: {name: $('#loginform-name').val(), password: $('#loginform-password').val()},
+    data: {username: $('#loginform-username').val(), password: $('#loginform-password').val()},
     dataType: "json",
     async:false
 }).done(function(response) {

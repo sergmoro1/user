@@ -1,6 +1,7 @@
 <?php
 namespace sergmoro1\user\controllers;
 
+use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -16,7 +17,7 @@ use sergmoro1\user\models\ResetPasswordForm;
 use sergmoro1\user\models\SignupForm;
 
 /**
- * Site controller
+ * Site controller implements user registration actions.
  */
 class SiteController extends Controller
 {
@@ -24,7 +25,7 @@ class SiteController extends Controller
     {
         parent::init();
 
-        \Yii::$app->mailer->setViewPath('@vendor/sergmoro1/yii2-user/src/mail');
+        Yii::$app->mailer->setViewPath('@vendor/sergmoro1/yii2-user/src/mail');
     }
 
     /**
@@ -82,15 +83,15 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm([
-            'urlPasswordExists' => Url::to([
-                'user/password-exists'])
+            'urlPasswordValid' => Url::to([
+                'user/password-valid'])
         ]);
-        if ($model->load(\Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goHome();
         } else {
             return $this->render('login', [
@@ -107,7 +108,7 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        \Yii::$app->user->logout();
+        Yii::$app->user->logout();
 
         return $this->redirect($this->toFrontend());
     }
@@ -119,19 +120,19 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
-        if (!\Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new SignupForm();
-        if ($model->load(\Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if ($model->sendEmail($user)) {
-                    \Yii::$app->session->setFlash(
+                    Yii::$app->session->setFlash(
                         'success', 
                         Module::t('core', 
                             '{name}, thank you for registering on the {website} website, check email, to complete the procedure.', 
-                            ['name' => $user->name, 'website' => \Yii::$app->name]
+                            ['name' => $user->username, 'website' => Yii::$app->name]
                         )
                     );
                     return $this->goHome();
@@ -153,13 +154,13 @@ class SiteController extends Controller
     public function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
-        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                \Yii::$app->session->setFlash('success', Module::t('core', 'Check your email for further instructions.'));
+                Yii::$app->session->setFlash('success', Module::t('core', 'Check your email for further instructions.'));
 
                 return $this->goHome();
             } else {
-                \Yii::$app->session->setFlash('error', Module::t('core', 'Sorry, we are unable to reset password for email provided.'));
+                Yii::$app->session->setFlash('error', Module::t('core', 'Sorry, we are unable to reset password for email provided.'));
             }
         }
 
@@ -185,7 +186,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(\Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            \Yii::$app->session->setFlash('success', Module::t('core', 'New password was saved.'));
+            Yii::$app->session->setFlash('success', Module::t('core', 'New password was saved.'));
 
             return $this->goHome();
         }
@@ -214,19 +215,19 @@ class SiteController extends Controller
         }
         $user->status = User::STATUS_ACTIVE;
         if($user->save())
-            \Yii::$app->session->setFlash(
+            Yii::$app->session->setFlash(
                 'success', 
                 Module::t('core', 
                     'User {name} is successfully activated.', 
-                    ['name' => $user->name]
+                    ['name' => $user->username]
                 )
             );
         else
-            \Yii::$app->session->setFlash(
+            Yii::$app->session->setFlash(
                 'error', 
                 Module::t('core', 
                     'User {name} can\'t be activated!', 
-                    ['name' => $user->name]
+                    ['name' => $user->username]
                 )
             );
 
@@ -237,7 +238,7 @@ class SiteController extends Controller
     {
         return str_replace('back', 'front', (Url::base()
             ? Url::base()
-            : \Yii::$app->request->hostInfo
+            : Yii::$app->request->hostInfo
         ));
     }
 }

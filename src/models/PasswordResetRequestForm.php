@@ -1,6 +1,7 @@
 <?php
 namespace sergmoro1\user\models;
 
+use Yii;
 use yii\base\Model;
 use sergmoro1\user\Module;
 
@@ -8,6 +9,7 @@ use common\models\User;
 
 /**
  * Password reset request form
+ * @var string  $email
  */
 class PasswordResetRequestForm extends Model
 {
@@ -49,16 +51,16 @@ class PasswordResetRequestForm extends Model
             }
 			//$viewPath = '@vendor/sergmoro1/yii2-user/src/mail';
             if ($user->save()) {
-                return \Yii::$app->mailer
+                return Yii::$app->mailer
 					->compose([
-							'html' => "passwordResetToken-html", 
-							'text' => "passwordResetToken-text",
+							'html' => 'passwordResetToken-html', 
+							'text' => 'passwordResetToken-text',
 						], 
 						['user' => $user]
 					)
-                    ->setFrom(\Yii::$app->params['adminEmail'])
+                    ->setFrom(Yii::$app->params['adminEmail'])
                     ->setTo($this->email)
-                    ->setSubject(Module::t('core', 'Robot: Password reset for ') . \Yii::$app->name)
+                    ->setSubject(Module::t('core', 'Robot: Password reset for ') . Yii::$app->name)
                     ->send();
             }
         }

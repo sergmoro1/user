@@ -1,6 +1,7 @@
 <?php
 namespace sergmoro1\user\models;
 
+use Yii;
 use yii\helpers\Url;
 use yii\base\Model;
 use sergmoro1\user\Module;
@@ -9,24 +10,31 @@ use common\models\User;
 
 /**
  * Login form
+ * @var string  $username
+ * @var string  $password
+ * @var boolean $rememberMe
  */
 class LoginForm extends Model
 {
     public $groups = [];
     
-    public $name;
+    public $username;
     public $password;
     public $rememberMe = true;
 
     private $_user;
 
-    public $urlPasswordExists;
+    public $urlPasswordValid;
     
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
-        if(!$this->urlPasswordExists)
-            $this->urlPasswordExists = Url::to(['user/user/password-exists']);
+        // Set url for password verification by Ajax request 
+        if(!$this->urlPasswordValid)
+            $this->urlPasswordValid = Url::to(['user/user/password-valid']);
     }
 
 
@@ -37,13 +45,13 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['name', 'password'], 'required'],
+            [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'sergmoro1\user\components\PasswordExistsValidator', 'urlPasswordExists' => $this->urlPasswordExists],
+            [['username', 'password'], 'sergmoro1\user\components\UserExistsPasswordValid', 'urlPasswordValid' => $this->urlPasswordValid],
             // registered user should also belongs to group
-            ['name', 'allowedUserGroups', 'params' => ['groups' => $this->groups]],
+            ['username', 'allowedUserGroups', 'params' => ['groups' => $this->groups]],
         ];
     }
 
@@ -70,8 +78,8 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'name' => Module::t('core', 'Name'),
-            'password' => Module::t('core', 'Password'),
+            'username'   => Module::t('core', 'Username'),
+            'password'   => Module::t('core', 'Password'),
             'rememberMe' => Module::t('core', 'Remember me'),
         ];
     }
@@ -84,7 +92,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return \Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;
         }
@@ -98,7 +106,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->name);
+            $this->_user = User::findByUsername($this->username);
         }
 
         return $this->_user;

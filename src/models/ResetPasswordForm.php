@@ -9,6 +9,7 @@ use common\models\User;
 
 /**
  * Password reset form
+ * @var string  $password
  */
 class ResetPasswordForm extends Model
 {

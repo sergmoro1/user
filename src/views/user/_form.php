@@ -1,10 +1,7 @@
-<style>
-    .en {color: #556b2f;}
-</style>
-
 <?php
+
 /* @var $this yii\web\View */
-/* @var $model common\models\Post */
+/* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
 
 use yii\helpers\Html;
@@ -14,7 +11,6 @@ use sergmoro1\lookup\models\Lookup;
 use sergmoro1\user\Module;
 
 use common\models\User;
-
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
@@ -27,7 +23,7 @@ use common\models\User;
             'draggable' => true,
         ]) ?>
 
-        <?= $form->field($model, 'name')
+        <?= $form->field($model, 'username')
             ->textInput(['maxlength' => true])
         ?>
 
@@ -45,20 +41,19 @@ use common\models\User;
     <div class="col-lg-4">
 
         <?php if(\Yii::$app->user->can('gear')): ?>
-        
-        <?= $form->field($model, 'status')->dropdownList(
-            Lookup::items('UserStatus')
-        ); ?>
+            <?= $form->field($model, 'status')->dropdownList(
+                Lookup::items('UserStatus')
+            ); ?>
 
-        <?= $form->field($model, 'group')->dropdownList(
-            Lookup::items('UserRole')
-        ); ?>
+            <?= $form->field($model, 'group')->dropdownList(
+                Lookup::items('UserRole')
+            ); ?>
 
-        <div class="form-group">
-            <?= Html::submitButton(Module::t('core', 'Save'), [
-                'class' => 'btn btn-success',
-            ]) ?>
-        </div>
+            <div class="form-group">
+                <?= Html::submitButton(Module::t('core', 'Save'), [
+                    'class' => 'btn btn-success',
+                ]) ?>
+            </div>
         <?php endif; ?>
         
         <?= $this->render('help') ?>

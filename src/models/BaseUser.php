@@ -1,23 +1,49 @@
 <?php
 namespace sergmoro1\user\models;
 
+use Yii;
 use yii\helpers\Url;
-use yii\base\NotSupportedException;
+use yii\helpers\Html;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\behaviors\TimestampBehavior;
+use yii\base\NotSupportedException;
 
 use sergmoro1\user\Module;
 use sergmoro1\user\models\SocialLink;
 
+/**
+ * BaseUser model.
+ *
+ * @var integer $id
+ * @var string  $username
+ * @var string  $auth_key
+ * @var string  $password_hash
+ * @var string  $password_reset_token
+ * @var string  $email
+ * @var integer $group
+ * @var integer $status
+ * @var integer $created_at
+ * @var integer $updated_at
+ */
 class BaseUser extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_ACTIVE = 1;
-    const STATUS_ARCHIVED = 2;
+    const STATUS_ACTIVE     = 1;
+    const STATUS_ARCHIVED   = 2;
 
-    const GROUP_ADMIN = 1;
-    const GROUP_AUTHOR = 2;
+    const GROUP_ADMIN       = 1;
+    const GROUP_AUTHOR      = 2;
     const GROUP_COMMENTATOR = 3;
     
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -32,17 +58,17 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'email'], 'required'],
+            [['username', 'email'], 'required'],
             [['status', 'group'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ARCHIVED],
-            ['status', 'in', 'range' => [self::STATUS_ARCHIVED, self::STATUS_ACTIVE]],
+            ['status', 'in', 'range' => self::getStatuses()],
             ['group', 'default', 'value' => self::GROUP_COMMENTATOR],
-            ['group', 'in', 'range' => [self::GROUP_ADMIN, self::GROUP_AUTHOR, self::GROUP_COMMENTATOR]],
-            [['name', 'email', 'password_hash', 'password_reset_token'], 'string', 'max'=>255],
-            ['name', 'unique', 'targetClass' => '\common\models\User', 'message' => Module::t('core', 'This username has already been taken.')],
+            ['group', 'in', 'range' => self::getGroups()],
+            [['username', 'email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Module::t('core', 'This username has already been taken.')],
             ['email', 'email'],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Module::t('core', 'This email address has already been taken.')],
-            [['auth_key'], 'string', 'max'=>32],
+            [['auth_key'], 'string', 'max' => 32],
             [['created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -53,18 +79,38 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'name' => \Yii::t('app', 'Name'),
-            'password' => \Yii::t('app', 'Password'),
-            'password_repeat' => \Yii::t('app', 'Repeat the passport'),
-            'email' => \Yii::t('app', 'Email'),
-            'group' => \Yii::t('app', 'Group'),
-            'status' => \Yii::t('app', 'Status'),
-            'verifyCode' => \Yii::t('app', 'Spam protection code'),
-            'created_at' => \Yii::t('app', 'Created'),
-            'updated_at' => \Yii::t('app', 'Modified'),
+            'username'          => Module::t('core', 'Name'),
+            'email'             => Module::t('core', 'Email'),
+            'group'             => Module::t('core', 'Group'),
+            'status'            => Module::t('core', 'Status'),
+            'created_at'        => Module::t('core', 'Created'),
+            'updated_at'        => Module::t('core', 'Modified'),
         ];
     }
 
+    /**
+     * Get statuses.
+     * @return array
+     */
+    public static function getStatuses() {
+        return [
+            self::STATUS_ACTIVE,
+            self::STATUS_ARCHIVED, 
+        ];
+    }
+
+    /**
+     * Get groups.
+     * @return array
+     */
+    public static function getGroups() {
+        return [
+            self::GROUP_ADMIN, 
+            self::GROUP_AUTHOR, 
+            self::GROUP_COMMENTATOR,
+        ];
+    }
+    
     /**
      * @inheritdoc
      */
@@ -82,20 +128,21 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * Finds user by username.
      *
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($name)
+    public static function findByUsername($username)
     {
-        return static::findOne(['name' => $name, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
-     * Finds user by password reset token
+     * Finds user by password reset token.
      *
      * @param string $token password reset token
+     * @param integer $status password reset token
      * @return static|null
      */
     public static function findByPasswordResetToken($token, $status = self::STATUS_ARCHIVED)
@@ -111,7 +158,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds out if password reset token is valid
+     * Finds out if password reset token is valid.
      *
      * @param string $token password reset token
      * @return boolean
@@ -144,16 +191,34 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Get user avatar from thumb if there is a registered user or social link or icon
+     * Get user SocialLink.
+     * 
+     * @return mixed
      */
-    public function getAvatar($class = '', $icon = '<i class="fa fa-user"></i>')
+    public function getSocialLink()
     {
-        if($image = $this->getImage('thumb'))
-            return "<img src='$image' class='$class'>";
-        else
-            return ($link = SocialLink::find()
-                ->where(['user_id' => $this->id])
-                ->one()) ? "<img src='{$link->avatar}' class='$class'>" : $icon;
+        return SocialLink::findOne(['user_id' => $this->id]);
+    }
+
+    /**
+     * Get user avatar from thumb if there is a registered user or social link or icon.
+     * Icon may be defined in params.
+     * 
+     * @param string image $class
+     * @param string $icon tag
+     * @return string avatar
+     */
+    public function getAvatar($class = '', $icon = false)
+    {
+        if(!$icon)
+            $icon = Yii::$app->params['icon']['user'];
+        if($image = $this->getImage('thumb')) {
+            return Html::img($image, ['class' => $class]);
+        } else {
+            return $link = $this->getSocialLink()
+                ? Html::img($link->avatar, ['class' => $class]) 
+                : $icon;
+        }
     }
 
     /**
@@ -172,7 +237,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return \Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     /**
@@ -182,7 +247,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = \Yii::$app->security->generatePasswordHash($password);
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
@@ -190,7 +255,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->auth_key = \Yii::$app->security->generateRandomString();
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -198,7 +263,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = \Yii::$app->security->generateRandomString() . '_' . time();
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -215,22 +280,5 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     public function getRoleName($role)
     {
         return Lookup::item('UserRole', $role);
-    }
-
-    /**
-     * This is invoked before the record is saved.
-     * @return boolean whether the record should be saved.
-     */
-    public function beforeSave($insert)
-    {
-        if(parent::beforeSave($insert))
-        {
-            $this->updated_at = time();
-            if($this->isNewRecord)
-                $this->created_at = $this->updated_at;
-            return true;
-        }
-        else
-            return false;
     }
 }

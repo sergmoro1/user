@@ -1,4 +1,5 @@
 <?php
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($data->getImage('thumb'), ['class' => 'img-responsive']);
                 }
             ],
-            'name',
+            'username',
             'email',
             [
                 'attribute' => 'status',

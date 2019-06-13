@@ -15,25 +15,25 @@ $this->params['breadcrumbs'][] = $this->title;
 <p><?= Module::t('core', 'You can request a password change if you have already registered.') ?></p>
 
 <div class="row">
-<div class="col-lg-6">
+    <div class="col-lg-6">
 
-<?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+        <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
 
-    <?php echo $form->errorSummary($model); ?>
+            <?php echo $form->errorSummary($model); ?>
 
-    <?= $form->field($model, 'email')
-        ->textInput(['placeholder' => $model->getAttributeLabel('email')])
-        ->label($model->getAttributeLabel('email'))
-    ?>
+            <?= $form->field($model, 'email')
+                ->textInput(['placeholder' => true])
+                ->label()
+            ?>
 
-    <br>
-    <?= Html::submitButton(Module::t('core', 'Submit'), [
-        'class' => 'btn btn-default', 
-        'name' => 'submit-button',
-    ]); ?>
-    <br><br>
+            <p>
+                <?= Html::submitButton(Module::t('core', 'Submit'), [
+                    'class' => 'btn btn-default', 
+                    'name' => 'submit-button',
+                ]); ?>
+            </p>
 
-<?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
-</div>
+    </div>
 </div>

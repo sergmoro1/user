@@ -14,36 +14,36 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
-<div class="col-lg-6">
+    <div class="col-lg-6">
 
-<?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+        <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-    <?php echo $form->errorSummary($model); ?>
+            <?php echo $form->errorSummary($model); ?>
 
-    <?= $form->field($model, 'name')
-        ->textInput(['placeholder' => $model->getAttributeLabel('name')])
-        ->label($model->getAttributeLabel('name'))
-    ?>
+            <?= $form->field($model, 'username')
+                ->textInput(['placeholder' => true])
+                ->label()
+            ?>
 
-    <?= $form->field($model, 'email')
-        ->textInput(['placeholder' => $model->getAttributeLabel('email')])
-        ->label($model->getAttributeLabel('email'))
-    ?>
+            <?= $form->field($model, 'email')
+                ->textInput(['placeholder' => true])
+                ->label()
+            ?>
 
-    <?= $form->field($model, 'password')
-        ->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
-        ->label($model->getAttributeLabel('password'))
-    ?>
+            <?= $form->field($model, 'password')
+                ->passwordInput(['placeholder' => true])
+                ->label()
+            ?>
 
-    <br>
-    <?= Html::submitButton(Module::t('core', 'To signup'), [
-        'class' => 'btn btn-default', 
-        'name' => 'signup-button',
-    ]) ?>
-    <br><br>
+            <p>
+                <?= Html::submitButton(Module::t('core', 'To signup'), [
+                    'class' => 'btn btn-default', 
+                    'name' => 'signup-button',
+                ]) ?>
+            </p>
 
-<?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
-</div> <!-- / .col ... -->
+    </div> <!-- / .col ... -->
 </div> <!-- / .row -->
 

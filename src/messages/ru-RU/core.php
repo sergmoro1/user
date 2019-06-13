@@ -58,6 +58,7 @@ return [
     'To signup' => 'Зарегистрироваться',
     'Update' => 'Изменить',
     'User activation token cannot be blank.' => 'Токен активации пользователя не может быть пустым.',
+    'Username' => 'Логин',
     'User {name} can\'t be activated!' => 'Пользователь {name} не может быть активирован!',
     'User {name} is successfully activated.' => 'Пользователь {name} успешно активирован.',
     'User with {email} have been exist, but not linked to {client}. Try to login with other social network or with name and password.' => 

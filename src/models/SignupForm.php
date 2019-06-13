@@ -1,6 +1,7 @@
 <?php
 namespace sergmoro1\user\models;
 
+use Yii;
 use yii\base\Model;
 use sergmoro1\user\Module;
 
@@ -8,10 +9,13 @@ use common\models\User;
 
 /**
  * Signup form
+ * @var string  $username
+ * @var string  $email
+ * @var string  $password
  */
 class SignupForm extends Model
 {
-    public $name;
+    public $username;
     public $email;
     public $password;
 
@@ -21,10 +25,10 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['name', 'filter', 'filter' => 'trim'],
-            ['name', 'required'],
-            ['name', 'unique', 'targetClass' => '\common\models\User', 'message' => Module::t('core', 'This username has already been taken.')],
-            ['name', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'filter', 'filter' => 'trim'],
+            ['username', 'required'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Module::t('core', 'This username has already been taken.')],
+            ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
@@ -43,7 +47,7 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'name' => Module::t('core', 'Name'),
+            'username' => Module::t('core', 'Username'),
             'password' => Module::t('core', 'Password'),
         ];
     }
@@ -61,10 +65,10 @@ class SignupForm extends Model
             }
 
             if ($user->save()) {
-                return \Yii::$app->mailer->compose(['html' => 'userActivating-html', 'text' => 'userActivating-text'], ['user' => $user])
-                    ->setFrom(\Yii::$app->params['adminEmail'])
+                return Yii::$app->mailer->compose(['html' => 'userActivating-html', 'text' => 'userActivating-text'], ['user' => $user])
+                    ->setFrom(Yii::$app->params['adminEmail'])
                     ->setTo($this->email)
-                    ->setSubject(Module::t('core', 'Robot: Account activating for ') . \Yii::$app->name)
+                    ->setSubject(Module::t('core', 'Robot: Account activating for ') . Yii::$app->name)
                     ->send();
             }
         }
@@ -81,10 +85,12 @@ class SignupForm extends Model
     {
         if ($this->validate()) {
             $user = new User();
-            $user->name = $this->name;
-            $user->email = $this->email;
-            $user->group = USER::GROUP_COMMENTATOR;
-            $user->status = USER::STATUS_ARCHIVED;
+            
+            $user->username = $this->username;
+            $user->email    = $this->email;
+            $user->group    = USER::GROUP_COMMENTATOR;
+            $user->status   = USER::STATUS_ARCHIVED;
+            
             $user->setPassword($this->password);
             $user->generateAuthKey();
             if ($user->save()) {
