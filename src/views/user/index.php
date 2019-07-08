@@ -23,13 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'attribute' => 'id',
-                'options' => ['style' => 'width:4%;'],
+                'options' => ['class' => 'id-col'],
             ],
             [
                 'header' => 'thumb',
                 'format' => 'html',
                 'value' => function($data) {
-                    return Html::img($data->getImage('thumb'), ['class' => 'img-responsive']);
+                    return $data->getAvatar('img-responsive img-thumb', '');
                 }
             ],
             'username',

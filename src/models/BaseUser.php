@@ -213,12 +213,12 @@ class BaseUser extends ActiveRecord implements IdentityInterface
      */
     public function getAvatar($class = '', $icon = false)
     {
-        if(!$icon)
-            $icon = Yii::$app->params['icon']['user'];
+        if($icon === false)
+            $icon = Yii::$app->params['icons']['user'];
         if($image = $this->getImage('thumb')) {
             return Html::img($image, ['class' => $class]);
         } else {
-            return $link = $this->getSocialLink()
+            return ($link = $this->getSocialLink())
                 ? Html::img($link->avatar, ['class' => $class]) 
                 : $icon;
         }
