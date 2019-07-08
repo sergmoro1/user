@@ -1,79 +1,83 @@
-<h1>Yii2 module for user. Registration, login, logout, management.</h1>
+#Yii2 module for user. Registration, login, logout, management.
 
-<h2>Advantages</h2>
+##Advantages
 
 Used with sergmoro1/yii2-blog-tools module but can be used separately.
 
-<ul>
-  <li>registration;</li>
-  <li>email confirmation;</li>
-  <li>authentification;</li>
-  <li>social networks OAuth authentification, avatar available (Yandex, Vkontakte, Google, GitHub);</li>
-  <li>users management.</li>
-</ul>
+* registration;
+* email confirmation;
+* authentification;
+* social networks OAuth2 authentification (avatar available);
+* backend users management.
 
-<h2>Installation</h2>
+##Installation
 
-In app directory:
+The preferred way to install this extension is through composer.
 
-<pre>
-$ composer require --prefer-dist sergmoro1/yii2-user "dev-master"
-</pre>
+Either run
 
-Run migration:
-<pre>
-$ php yii migrate --migrationPath=@vendor/sergmoro1/yii2-user/src/migrations
-</pre>
+`composer require --prefer-dist sergmoro1/yii2-user`
 
-<h2>Recomendation</h2>
+or add
 
-Use this module in addition to <code>sergmoro1/yii2-blog-tools</code> module.
+`"sergmoro1/yii2-uploader": "~1.0"`
 
-<h2>Usage</h2>
+to the require section of your composer.json.
 
-Set up in <code>backend/config/main.php</code> or <code>common/config/main.php</code>.
+Run migration
 
-<pre>
+`php yii migrate --migrationPath=@vendor/sergmoro1/yii2-user/src/migrations`
+
+##Recomendation
+
+Use this module in addition to ***sergmoro1/yii2-blog-tools*** module.
+Especially take a look ***common/models/User.php*** after ***initblog***.
+
+##Usage
+
+Set up in ***backend/config/main.php*** or ***common/config/main.php***.
+
+```php
 return [
   ...
-  'modules' =&gt; [
-    'uploader' =&gt; ['class' =&gt; 'sergmoro1\uploader\Module'],
-    'lookup' =&gt; ['class' =&gt; 'sergmoro1\lookup\Module'],
-    'user' =&gt; ['class' =&gt; 'sergmoro1\user\Module'],
+  'modules' => [
+    'uploader' => ['class' => 'sergmoro1\uploader\Module'],
+    'lookup' => ['class' => 'sergmoro1\lookup\Module'],
+    'user' => ['class' => 'sergmoro1\user\Module'],
   ],
-  'components' =&gt; [
-    'authClientCollection' =&gt; [
-      'class' =&gt; 'yii\authclient\Collection',
-      'clients' =&gt; [
-        'yandex' =&gt; [
-          'class' =&gt; 'yii\authclient\clients\Yandex',
-          'clientId' =&gt; 'YandexClientId',
-          'clientSecret' =&gt; 'YandexClientSecret',
+  'components' => [
+    'authClientCollection' => [
+      'class' => 'yii\authclient\Collection',
+      'clients' => [
+        'yandex' => [
+          'class' => 'yii\authclient\clients\Yandex',
+          'clientId' => 'YandexClientId',
+          'clientSecret' => 'YandexClientSecret',
         ],
         ...
       ],
-      'mailer' =&gt; [
-        'class' =&gt; 'yii\swiftmailer\Mailer',
-        'useFileTransport' =&gt; false,
-        'viewPath' =&gt; '@vendor/sergmoro1/yii2-user/src/mail',
+      'mailer' => [
+        'class' => 'yii\swiftmailer\Mailer',
+        'useFileTransport' => false,
+        'viewPath' => '@vendor/sergmoro1/yii2-user/src/mail',
         /* Definition of Yandex post office for your domain (example).
-        'transport' =&gt; [
-          'class' =&gt; 'Swift_SmtpTransport',
-          'host' =&gt; 'smtp.yandex.ru',
-          'username' =&gt; 'admin@your-site.ru',
-          'password' =&gt; 'your-password',
-          'port' =&gt; '465',
-          'encryption' =&gt; 'ssl',
+        'transport' => [
+          'class' => 'Swift_SmtpTransport',
+          'host' => 'smtp.yandex.ru',
+          'username' => 'admin@your-site.ru',
+          'password' => 'your-password',
+          'port' => '465',
+          'encryption' => 'ssl',
         ],
         */
       ],
     ],
   ],
-</pre>
+```
 
-Add action for OAuth2 authontification with social network accounts to <code>frontend/controllers/SiteController.php</code>.
+Add action for OAuth2 authontification with social network accounts to ***frontend/controllers/SiteController.php***.
 
-<pre>
+```php
 namespace frontend\controllers;
 
 use common\models\User;
@@ -84,9 +88,9 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'auth' =&gt; [
-                'class' =&gt; 'yii\authclient\AuthAction',
-                'successCallback' =&gt; [$this, 'onAuthSuccess'],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccess'],
             ],
         ];
     }
@@ -95,21 +99,21 @@ class SiteController extends Controller
     {
         $social_contact = new SocialContact($client);
 
-        $social_link = SocialLink::find()-&gt;where([
-            'source' =&gt; $client-&gt;getId(),
-            'source_id' =&gt; $social_contact-&gt;id,
-        ])-&gt;one();
+        $social_link = SocialLink::find()->where([
+            'source' => $client->getId(),
+            'source_id' => $social_contact->id,
+        ])->one();
         
-        if (Yii::$app-&gt;user-&gt;isGuest) {
+        if (Yii::$app->user->isGuest) {
             if ($social_link) { // authorization
-                Yii::$app-&gt;user-&gt;login($social_link-&gt;user);
+                Yii::$app->user->login($social_link->user);
             } else { // registration
-                $social_contact-&gt;registration($client-&gt;getId());
+                $social_contact->registration($client->getId());
             }
         } else { // the user is already registered
             if (!$social_link) { // add external service of authentification
-                $social_contact-&gt;makeLink($client-&gt;getId(), Yii::$app-&gt;user-&gt;id);
+                $social_contact->makeLink($client->getId(), Yii::$app->user->id);
             }
         }
     }
-</pre>
+```

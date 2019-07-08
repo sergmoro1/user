@@ -7,10 +7,12 @@ use yii\db\Migration;
  */
 class m180116_073647_update_user extends Migration
 {
+    private const TABLE_USER = '{{%user}}';
+
     // Use up()/down() to run migration code without a transaction.
-    public function up()
+    public function safeUp()
     {
-        $this->addColumn('{{%user}}', 'group', $this->smallInteger());
+        $this->addColumn(static::TABLE_USER, 'group', $this->smallInteger());
         $this->insert('{{%user}}', [
             'username'      => 'Admin', 
             'auth_key'      => 'W7waylK0-91AksYe439PQ7aVmDoSaBsP', 
@@ -24,8 +26,8 @@ class m180116_073647_update_user extends Migration
 
     }
 
-    public function down()
+    public function safeDown()
     {
-        $this->dropColumn('{{%user}}', 'group');
+        $this->dropColumn(static::TABLE_USER, 'group');
     }
 }

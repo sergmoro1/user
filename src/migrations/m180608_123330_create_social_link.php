@@ -7,10 +7,11 @@ use yii\db\Migration;
  */
 class m180608_123330_create_social_link extends Migration
 {
-    public $table = '{{%social_link}}';
+    private const TABLE_SOCIAL_LINK  = '{{%social_link}}';
+    private const TABLE_USER         = '{{%user}}';
 
     // Use up()/down() to run migration code without a transaction.
-    public function up()
+    public function safeUp()
     {
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
@@ -18,7 +19,7 @@ class m180608_123330_create_social_link extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable($this->table, [
+        $this->createTable(static::TABLE_SOCIAL_LINK, [
             'id'        => $this->primaryKey(),
             'user_id'   => $this->integer()->notNull(),
             'avatar'    => $this->string(255),
@@ -26,12 +27,12 @@ class m180608_123330_create_social_link extends Migration
             'source_id' => $this->string(255)->notNull(),
         ], $tableOptions);
 
-        $this->addForeignKey ('FK_social_link_user', $this->table, 'user_id', '{{%user}}', 'id', 'CASCADE');
+        $this->addForeignKey ('fk-social_link-user', static::TABLE_SOCIAL_LINK, 'user_id', static::TABLE_USER, 'id', 'CASCADE');
 
     }
 
-    public function down()
+    public function safeDown()
     {
-        $this->dropTable($this->table);
+        $this->dropTable(static::TABLE_SOCIAL_LINK);
     }
 }

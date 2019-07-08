@@ -13,21 +13,24 @@ use sergmoro1\user\Module;
 use sergmoro1\user\models\SocialLink;
 
 /**
- * BaseUser model.
- *
- * @var integer $id
- * @var string  $username
- * @var string  $auth_key
- * @var string  $password_hash
- * @var string  $password_reset_token
- * @var string  $email
- * @var integer $group
- * @var integer $status
- * @var integer $created_at
- * @var integer $updated_at
+ * BaseUser model class.
  */
 class BaseUser extends ActiveRecord implements IdentityInterface
 {
+    /**
+     * The followings are the available columns in table 'user':
+     * @var integer $id
+     * @var string  $username
+     * @var string  $auth_key
+     * @var string  $password_hash
+     * @var string  $password_reset_token
+     * @var string  $email
+     * @var integer $group
+     * @var integer $status
+     * @var integer $created_at
+     * @var integer $updated_at
+     */
+
     const STATUS_ACTIVE     = 1;
     const STATUS_ARCHIVED   = 2;
 
@@ -79,12 +82,12 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'username'          => Module::t('core', 'Name'),
-            'email'             => Module::t('core', 'Email'),
-            'group'             => Module::t('core', 'Group'),
-            'status'            => Module::t('core', 'Status'),
-            'created_at'        => Module::t('core', 'Created'),
-            'updated_at'        => Module::t('core', 'Modified'),
+            'username'   => Module::t('core', 'Name'),
+            'email'      => Module::t('core', 'Email'),
+            'group'      => Module::t('core', 'Group'),
+            'status'     => Module::t('core', 'Status'),
+            'created_at' => Module::t('core', 'Created'),
+            'updated_at' => Module::t('core', 'Modified'),
         ];
     }
 

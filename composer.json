@@ -1,11 +1,11 @@
 {
     "name": "sergmoro1/yii2-user",
-    "version": "1.0.0",
-    "description": "User registration by email with confirmation. Users management.",
+    "description": "User registration by email with confirmation. Users management. Login with OAuth2 credensials. Predefined for role based access control.",
     "keywords": [
         "yii2",
         "user", "authentification",
-        "registration", "management"
+        "registration", "management", "oauth2",
+        "roles", "rbac"
     ],
     "type": "yii2-extension",
     "license": "MIT",
@@ -15,14 +15,13 @@
             "email": "sergmoro1@ya.ru"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-authclient": "^2.1",
-        "sergmoro1/yii2-lookup" : "dev-master",
-        "sergmoro1/yii2-byone-uploader" : "dev-master"
+        "sergmoro1/yii2-lookup" : "*",
+        "sergmoro1/yii2-uploader" : "*"
     },
     "autoload": {
         "psr-4": {
