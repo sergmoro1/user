@@ -1,7 +1,7 @@
 <?php
 /**
- * @author - Sergey Morozov <sergmoro1@ya.ru>
- * @var $file - oneFile model record
+ * @var \sergmoro1\uploader\models\OneFile $file
+ * @author Sergey Morozov <sergmoro1@ya.ru>
  */
 ?>
 

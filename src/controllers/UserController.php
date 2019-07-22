@@ -107,11 +107,10 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value or by name.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * 
      * @param integer $id
-     * @param string $name
      * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

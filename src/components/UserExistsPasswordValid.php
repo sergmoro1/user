@@ -12,7 +12,7 @@ use sergmoro1\user\Module;
  */
 class UserExistsPasswordValid extends Validator
 {
-    public $urlPasswordExists;
+    public $urlPasswordValid;
     
     public function init()
     {
@@ -32,7 +32,7 @@ class UserExistsPasswordValid extends Validator
 
     public function clientValidateAttribute($model, $attribute, $view)
     {
-        $url = json_encode($this->urlPasswordExists);
+        $url = json_encode($this->urlPasswordValid);
         $message = json_encode($this->message, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         return <<<JS
 var entity = {exists: false};

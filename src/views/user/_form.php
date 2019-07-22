@@ -6,7 +6,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use sergmoro1\uploader\widgets\Byone;
+use sergmoro1\uploader\widgets\Uploader;
 use sergmoro1\lookup\models\Lookup;
 use sergmoro1\user\Module;
 
@@ -16,7 +16,7 @@ use common\models\User;
 <?php $form = ActiveForm::begin(); ?>
 <div class='row'>
     <div class="col-lg-8">
-        <?= Byone::widget([
+        <?= Uploader::widget([
             'model' => $model,
             'appendixView' => '/user/appendix',
             'cropAllowed' => true,

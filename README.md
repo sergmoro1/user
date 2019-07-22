@@ -1,6 +1,8 @@
-#Yii2 module for user. Registration, login, logout, management.
+Yii2 module for user. Registration, login, logout, management
+=============================================================
 
-##Advantages
+Advantages
+----------
 
 Used with sergmoro1/yii2-blog-tools module but can be used separately.
 
@@ -10,7 +12,8 @@ Used with sergmoro1/yii2-blog-tools module but can be used separately.
 * social networks OAuth2 authentification (avatar available);
 * backend users management.
 
-##Installation
+Installation
+------------
 
 The preferred way to install this extension is through composer.
 
@@ -20,7 +23,7 @@ Either run
 
 or add
 
-`"sergmoro1/yii2-uploader": "~1.0"`
+`"sergmoro1/yii2-user": "~1.0"`
 
 to the require section of your composer.json.
 
@@ -28,14 +31,10 @@ Run migration
 
 `php yii migrate --migrationPath=@vendor/sergmoro1/yii2-user/src/migrations`
 
-##Recomendation
+Configuration
+-------------
 
-Use this module in addition to ***sergmoro1/yii2-blog-tools*** module.
-Especially take a look ***common/models/User.php*** after ***initblog***.
-
-##Usage
-
-Set up in ***backend/config/main.php*** or ***common/config/main.php***.
+Set up in `backend/config/main.php` or `common/config/main.php`.
 
 ```php
 return [
@@ -75,7 +74,10 @@ return [
   ],
 ```
 
-Add action for OAuth2 authontification with social network accounts to ***frontend/controllers/SiteController.php***.
+Usage
+-----
+
+Add action for OAuth2 authontification with social network accounts to `frontend/controllers/SiteController.php`.
 
 ```php
 namespace frontend\controllers;
@@ -117,3 +119,10 @@ class SiteController extends Controller
         }
     }
 ```
+
+Recomendation
+-------------
+
+Use this module in addition to `sergmoro1/yii2-blog-tools` module.
+Especially take a look `common/models/User.php` after `initblog`.
+
