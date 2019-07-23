@@ -23,7 +23,7 @@ Either run
 
 or add
 
-`"sergmoro1/yii2-user": "~1.0"`
+`"sergmoro1/yii2-user": "dev-master"`
 
 to the require section of your composer.json.
 
