@@ -37,6 +37,7 @@ class UserExistsPasswordValid extends Validator
         return <<<JS
 var entity = {exists: false};
 $.ajax({
+    type: 'POST',
     url: $url, 
     data: {username: $('#loginform-username').val(), password: $('#loginform-password').val()},
     dataType: "json",

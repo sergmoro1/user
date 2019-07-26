@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         if (Yii::$app->user->can('index', [], false)) {
             $searchModel = new UserSearch();
-            $dataProvider = $searchModel->search(\Yii::$app->request->get());
+            $dataProvider = $searchModel->search(Yii::$app->request->get());
 
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
@@ -62,10 +62,10 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if (\Yii::$app->user->can('update', ['user' => $model])) {
-            if ($model->load(\Yii::$app->request->post()) && $model->save()) {
-                if(\Yii::$app->user->identity->group == User::GROUP_COMMENTATOR) {
-                    \Yii::$app->session->setFlash(
+        if (Yii::$app->user->can('update', ['user' => $model])) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                if(Yii::$app->user->identity->group == User::GROUP_COMMENTATOR) {
+                    Yii::$app->session->setFlash(
                         'success', 
                         Module::t('core', 
                             '{name}\'s profile was successfully updated.', 
@@ -95,7 +95,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        if (!\Yii::$app->user->can('delete'))
+        if (!Yii::$app->user->can('delete'))
             throw new ForbiddenHttpException(\Module::t('core', 'Access denied.'));
 
         $model = $this->findModel($id);
@@ -130,17 +130,20 @@ class UserController extends Controller
     /**
      * Check the password by Ajax request for User with username.
      * 
+     * POST
      * @param string $username
      * @param string $password
      * @return boolean model found and validation passed
      * @throws ForbiddenHttpException if not Ajax request
      */
-    public function actionPasswordValid($username, $password)
+    public function actionPasswordValid()
     {
         if(Yii::$app->getRequest()->isAjax) {
-            $model = User::findByUsername($username);
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return $model && $model->validatePassword($password);
+            $post = Yii::$app->request->post();
+            $result = false;
+            if ($model = User::findByUsername($post['username']))
+                $result = $model->validatePassword($post['password']);
+            return $this->asJson($result);
         } else
             throw new ForbiddenHttpException(Module::t('core', 'Access denied.'));
     }
