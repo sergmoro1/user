@@ -1,5 +1,5 @@
-Yii2 module for user. Registration, login, logout, management
-=============================================================
+Yii2 module for user registration, login, logout, management
+============================================================
 
 Advantages
 ----------
