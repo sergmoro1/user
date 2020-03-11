@@ -109,4 +109,10 @@ class SiteController extends Controller
     }
 ```
 
+Place the widget somewhere in the view.
 
+```php
+<?= sergmoro1\user\widgets\SocialCredentials::widget() ?>
+```
+
+Social icons can be defined in `Yii::$app->params['icons']`. Their use is determined by `widgets/views/socialCredentials.php`.

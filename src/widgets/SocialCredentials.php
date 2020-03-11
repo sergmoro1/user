@@ -13,7 +13,6 @@ use sergmoro1\user\Module;
 class SocialCredentials extends Widget
 {
     public $call = '';
-    public $viewFile = 'socialCredentials';
     public $credentials = [];
     public $icons = [];
     
@@ -29,7 +28,7 @@ class SocialCredentials extends Widget
     
     public function run()
     {
-        echo $this->render($this->viewFile, [
+        echo $this->render('socialCredentials', [
             'call' => $this->call,
             'credentials' => $this->credentials,
             'icons' => $this->icons,
