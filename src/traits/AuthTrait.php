@@ -1,5 +1,7 @@
 <?php
 
+namespace sergmoro1\user\traits;
+
 use sergmoro1\user\Module;
 use sergmoro1\user\components\SocialContact;
 use sergmoro1\user\models\SocialLink;
