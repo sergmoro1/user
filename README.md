@@ -78,9 +78,12 @@ Add action for OAuth2 authentification with social network accounts to controlle
 namespace frontend\controllers;
 
 use Yii;
+use sergmoro1\user\traits\AuthTrait;
 
 class SiteController extends Controller
 {
+    use AuthTrait;
+
     /**
      * Handler for EVENT_AFTER_LOGGED_IN. May be defined if needed.
      */
