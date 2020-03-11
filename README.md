@@ -90,9 +90,9 @@ class SiteController extends Controller
     public function init()
     {
         parent::init();
-        $this->on(\sergmoro1\user\Module::EVENT_AFTER_LOGGED_IN, Yii::$app->session->setFlash('success', 
-            Yii::t('app', 'You are logged in as a commentator. You can leave a comment now.')
-        ));
+        $this->on(\sergmoro1\user\Module::EVENT_AFTER_LOGGED_IN, function($event) { Yii::$app->session->setFlash('success', 
+            Yii::t('app', 'You are logged in as a commentator. You can leave a comment now.'));
+        });
     }
     
     /**
