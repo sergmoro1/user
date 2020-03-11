@@ -21,7 +21,6 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-authclient": "^2.1",
         "sergmoro1/yii2-lookup": "^1.1",
-        "sergmoro1/yii2-uploader": "^1.1"
     },
     "autoload": {
         "psr-4": {

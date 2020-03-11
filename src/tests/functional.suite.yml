@@ -1,0 +1,21 @@
+# Codeception Test Suite Configuration
+#
+# Suite for functional tests
+# Emulate web requests and make application process them
+# Include one of framework modules (Symfony2, Yii2, Laravel5) to use it
+# Remove this suite if you don't use frameworks
+
+class_name: FunctionalTester
+modules:
+    enabled:
+        - Filesystem
+        - Yii2
+        - sergmoro1\user\tests\_support\FixtureHelper
+        - Asserts
+        - Db:
+            dsn: 'mysql:host=localhost;dbname=yii2_advanced_tests'
+            user: 'root'
+            password: ''
+    config:
+        Yii2:
+            configFile: './common/config/functional.php'

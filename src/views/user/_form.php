@@ -6,7 +6,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use sergmoro1\uploader\widgets\Uploader;
 use sergmoro1\lookup\models\Lookup;
 use sergmoro1\user\Module;
 
@@ -16,12 +15,14 @@ use common\models\User;
 <?php $form = ActiveForm::begin(); ?>
 <div class='row'>
     <div class="col-lg-8">
-        <?= Uploader::widget([
-            'model' => $model,
-            'appendixView' => '/user/appendix',
-            'cropAllowed' => true,
-            'draggable' => true,
-        ]) ?>
+        <?php if (isset($model->sizes)): ?>
+            <?= \sergmoro1\uploader\widgets\Uploader::widget([
+                'model' => $model,
+                'appendixView' => '/user/appendix',
+                'cropAllowed' => true,
+                'draggable' => true,
+            ]) ?>
+        <?php endif; ?>
 
         <?= $form->field($model, 'username')
             ->textInput(['maxlength' => true])

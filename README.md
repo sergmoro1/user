@@ -1,14 +1,10 @@
-Yii2 module for user registration, login, logout, management
-============================================================
+Yii2 module for user registration and management
+================================================
 
 Advantages
 ----------
 
-Used with sergmoro1/yii2-blog-tools module but can be used separately.
-
-* registration;
-* email confirmation;
-* authentification;
+* registration, email confirmation, reset password, authentification;
 * social networks OAuth2 authentification (avatar available);
 * backend users management.
 
@@ -34,15 +30,14 @@ Run migration
 Configuration
 -------------
 
-Set up in `backend/config/main.php` or `common/config/main.php`.
+Add to the configuration file used modules definitions, OAuth2 and mailler components.
 
 ```php
 return [
   ...
   'modules' => [
-    'uploader' => ['class' => 'sergmoro1\uploader\Module'],
     'lookup' => ['class' => 'sergmoro1\lookup\Module'],
-    'user' => ['class' => 'sergmoro1\user\Module'],
+    'user'   => ['class' => 'sergmoro1\user\Module'],
   ],
   'components' => [
     'authClientCollection' => [
@@ -59,7 +54,7 @@ return [
         'class' => 'yii\swiftmailer\Mailer',
         'useFileTransport' => false,
         'viewPath' => '@vendor/sergmoro1/yii2-user/src/mail',
-        /* Definition of Yandex post office for your domain (example).
+        /* Example of definition (Yandex)
         'transport' => [
           'class' => 'Swift_SmtpTransport',
           'host' => 'smtp.yandex.ru',
@@ -77,16 +72,29 @@ return [
 Usage
 -----
 
-Add action for OAuth2 authontification with social network accounts to `frontend/controllers/SiteController.php`.
+Add action for OAuth2 authentification with social network accounts to controller.
 
 ```php
 namespace frontend\controllers;
 
-use common\models\User;
-use sergmoro1\user\models\SocialLink;
+use Yii;
 
 class SiteController extends Controller
 {
+    /**
+     * Handler for EVENT_AFTER_LOGGED_IN. May be defined if needed.
+     */
+    public function init()
+    {
+        parent::init();
+        $this->on(\sergmoro1\user\Module::EVENT_AFTER_LOGGED_IN, Yii::$app->session->setFlash('success', 
+            Yii::t('app', 'You are logged in as a commentator. You can leave a comment now.')
+        ));
+    }
+    
+    /**
+     * inheritdoc
+     */
     public function actions()
     {
         return [
@@ -96,33 +104,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
-    public function onAuthSuccess($client)
-    {
-        $social_contact = new SocialContact($client);
-
-        $social_link = SocialLink::find()->where([
-            'source' => $client->getId(),
-            'source_id' => $social_contact->id,
-        ])->one();
-        
-        if (Yii::$app->user->isGuest) {
-            if ($social_link) { // authorization
-                Yii::$app->user->login($social_link->user);
-            } else { // registration
-                $social_contact->registration($client->getId());
-            }
-        } else { // the user is already registered
-            if (!$social_link) { // add external service of authentification
-                $social_contact->makeLink($client->getId(), Yii::$app->user->id);
-            }
-        }
-    }
 ```
 
-Recomendation
--------------
-
-Use this module in addition to `sergmoro1/yii2-blog-tools` module.
-Especially take a look `common/models/User.php` after `initblog`.
 

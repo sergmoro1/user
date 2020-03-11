@@ -37,6 +37,7 @@ return [
     'New password was saved.' => 'Новый пароль сохранен.',
     'Password' => 'Пароль',
     'Password reset token cannot be blank.' => 'Восстановительный токен не может быть пустым.',
+    'Photo' => 'Фото',
     'Remember me' => 'Запомнить меня',
     'Repeat the passport' => 'Повторите пароль',
     'Request password reset' => 'Запрос изменения пароля',

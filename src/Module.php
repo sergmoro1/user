@@ -5,6 +5,11 @@ use Yii;
 
 class Module extends \yii\base\Module
 {
+    /**
+     * @event AfterLoggedIn an event that occurred after the user logs in.
+     */
+    const EVENT_AFTER_LOGGED_IN = 'afterLoggedIn';
+    
     public $controllerNamespace = 'sergmoro1\user\controllers';
     public $sourceLanguage = 'en-US';
 

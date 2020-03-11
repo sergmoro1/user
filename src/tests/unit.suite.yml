@@ -1,0 +1,20 @@
+# Codeception Test Suite Configuration
+#
+# Suite for unit or integration tests.
+
+class_name: UnitTester
+modules:
+    enabled:
+      - Yii2:
+            part: [orm, email, fixtures]
+      - Asserts
+      - Db:
+            dsn: 'mysql:host=localhost;dbname=yii2_advanced_tests'
+            user: 'root'
+            password: ''
+            populate: false
+            cleanup: false
+            reconnect: true
+    config:
+        Yii2:
+            configFile: './common/config/unit.php'

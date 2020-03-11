@@ -11,6 +11,7 @@ use yii\base\NotSupportedException;
 
 use sergmoro1\user\Module;
 use sergmoro1\user\models\SocialLink;
+use sergmoro1\uploader\behaviors\HaveFileBehavior;
 
 /**
  * BaseUser model class.
@@ -41,9 +42,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::className(),
-            ],
+            ['class' => TimestampBehavior::className()],
         ];
     }
 
@@ -202,20 +201,34 @@ class BaseUser extends ActiveRecord implements IdentityInterface
     {
         return SocialLink::findOne(['user_id' => $this->id]);
     }
+    
+    /**
+     * Get User image.
+     * For example, if attached HaveFileBehavior, return should be like this.
+     *  
+     * ```php
+     *  return $this->getImage('thumb');
+     * ```
+     * @return string
+     */
+    public function getAvatarImage()
+    {
+        return false;
+    }
 
     /**
      * Get user avatar from thumb if there is a registered user or social link or icon.
      * Icon may be defined in params.
      * 
-     * @param string image $class
+     * @param string $class of image
      * @param string $icon tag
      * @return string avatar
      */
     public function getAvatar($class = '', $icon = false)
     {
         if($icon === false)
-            $icon = Yii::$app->params['icons']['user'];
-        if($image = $this->getImage('thumb')) {
+            $icon = isset(Yii::$app->params['icons']['user']) ? Yii::$app->params['icons']['user'] : '';
+        if($image = $this->getAvatarImage()) {
             return Html::img($image, ['class' => $class]);
         } else {
             return ($link = $this->getSocialLink())

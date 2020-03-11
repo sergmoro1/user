@@ -26,10 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['class' => 'id-col'],
             ],
             [
-                'header' => 'thumb',
+                'header' => Module::t('core', 'Photo'),
                 'format' => 'html',
                 'value' => function($data) {
-                    return $data->getAvatar('img-responsive img-thumb', '');
+                    return ($image = $data->getAvatar('img-responsive img-thumb', ''))
+                        ? Html::a($image, ['/user/user/update', 'id' => $data->id])
+                        : '';
                 }
             ],
             'username',
