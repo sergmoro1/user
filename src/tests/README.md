@@ -7,7 +7,7 @@ How to start tests.
 cd tests
 ../vendor/bin/codecept run
 ../vendor/bin/codecept run acceptance
-../vendor/bin/codecept run acceptance CommentCept --steps --debug
+../vendor/bin/codecept run functional SomeCept --steps --debug
 ```
 
 How to start tests for extension.
@@ -60,14 +60,14 @@ Change `webRoot` of the application in `tests/acceptance.suite.yml` if acceptanc
 Namespace
 ---------
 
-After `*.suite.yml` have changed then automatically can be changed namespaces in a files `sergmoro1\user\tests\_support\*Tester.php` and
-folders `sergmoro1\user\tests\_support\_generated`. Fix namespaces if needed.
+After `*.suite.yml` have changed then automatically can be changed namespaces in a files `tests\_support\*Tester.php` and
+folders `tests\_support\_generated`. Fix namespaces if needed.
 For example in `FunctionalTesterActions.php`
 
 ```
 // from
-namespace sergmoro1\user\tests\_generated;
+namespace author\extension\tests\_generated;
 
 //to
-namespace sergmoro1\user\tests\_support\_generated;
+namespace author\extension\tests\_support\_generated;
 ```

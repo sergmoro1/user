@@ -11,7 +11,6 @@ use yii\base\NotSupportedException;
 
 use sergmoro1\user\Module;
 use sergmoro1\user\models\SocialLink;
-use sergmoro1\uploader\behaviors\HaveFileBehavior;
 
 /**
  * BaseUser model class.
@@ -172,7 +171,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface
         }
 
         $timestamp = (int) substr($token, strrpos($token, '_') + 1);
-        $expire = \Yii::$app->params['user.passwordResetTokenExpire'];
+        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
 

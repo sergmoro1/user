@@ -34,39 +34,47 @@ Add to the configuration file used modules definitions, OAuth2 and mailler compo
 
 ```php
 return [
-  ...
-  'modules' => [
-    'lookup' => ['class' => 'sergmoro1\lookup\Module'],
-    'user'   => ['class' => 'sergmoro1\user\Module'],
-  ],
-  'components' => [
-    'authClientCollection' => [
-      'class' => 'yii\authclient\Collection',
-      'clients' => [
-        'yandex' => [
-          'class' => 'yii\authclient\clients\Yandex',
-          'clientId' => 'YandexClientId',
-          'clientSecret' => 'YandexClientSecret',
-        ],
-        ...
-      ],
-      'mailer' => [
-        'class' => 'yii\swiftmailer\Mailer',
-        'useFileTransport' => false,
-        'viewPath' => '@vendor/sergmoro1/yii2-user/src/mail',
-        /* Example of definition (Yandex)
-        'transport' => [
-          'class' => 'Swift_SmtpTransport',
-          'host' => 'smtp.yandex.ru',
-          'username' => 'admin@your-site.ru',
-          'password' => 'your-password',
-          'port' => '465',
-          'encryption' => 'ssl',
-        ],
-        */
-      ],
+    ...
+    'modules' => [
+        'lookup' => ['class' => 'sergmoro1\lookup\Module'],
+        'user'   => ['class' => 'sergmoro1\user\Module'],
     ],
-  ],
+    'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'yandex' => [
+                    'class' => 'yii\authclient\clients\Yandex',
+                    'clientId' => 'YandexClientId',
+                    'clientSecret' => 'YandexClientSecret',
+                ],
+            ],
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'viewPath' => '@vendor/sergmoro1/yii2-user/src/mail',
+            /* Example of definition (Yandex)
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.yandex.ru',
+                'username' => 'admin@your-site.ru',
+                'password' => 'your-password',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
+            */
+        ],
+    ],
+```
+
+Redeclare `getAvatarImage()`, something like this (if `sergmoro1/yii2-uploader` is used) or any other way.
+
+```php
+    public function getAvatarImage()
+    {
+        return $this->getImage('thumb');
+    }
 ```
 
 Usage

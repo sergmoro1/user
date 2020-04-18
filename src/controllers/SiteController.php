@@ -214,7 +214,7 @@ class SiteController extends Controller
             throw new InvalidParamException(Module::t('core', 'Wrong user activation token.'));
         }
         $user->status = User::STATUS_ACTIVE;
-        if($user->save())
+        if($user->save(false))
             Yii::$app->session->setFlash(
                 'success', 
                 Module::t('core', 
